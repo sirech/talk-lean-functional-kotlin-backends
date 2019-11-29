@@ -96,15 +96,155 @@ class: transition
 
 ---
 
-basic null safety
+class: middle
+
+# The billion dollar mistake
+
+> I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
 
 ---
 
-example with many chained calls
+class: center middle
+
+## Decoding JWT tokens
 
 ---
 
-Option
+.bottom-right[
+### jwt.io/
+]
+
+sample JWT token
+
+---
+
+class: center middle
+
+# Nullable types
+
+---
+
+class: center middle
+
+```shell
+Authorization: Bearer eJ...
+```
+
+---
+
+class: center middle
+
+```kotlin
+fun String.extractToken(): String? = if (startsWith("Bearer"))
+    split(" ").last()
+else
+    null
+```
+
+--
+
+```kotlin
+val header = "Bearer eJ..."
+header.extractToken()?.let { token -> 
+    doStuff(token)
+}
+```
+
+---
+
+class: center middle
+
+# It can get messy
+
+---
+
+picture of flow
+
+---
+
+class: center middle
+
+```kotlin
+request.getHeader(Headers.AUTHORIZATION)?.let { header ->
+    header.extractToken()?.let { jwt ->
+        verifier.verify(jwt)?.let { token ->
+            SecurityContextHolder.getContext().authentication = token       
+        }
+    }
+}
+```
+
+---
+
+pic of callback hell
+
+---
+
+class: center middle
+# Option
+
+---
+
+what is an option
+
+---
+
+class: center middle
+
+```kotlin
+fun String.extractToken(): String? = if (startsWith("Bearer"))
+    split(" ").last()
+else
+    null
+```
+
+```kotlin
+fun String.extractToken(): Option<String> = startsWith("Bearer ")
+        .maybe { split(" ").last() }
+```
+
+---
+
+class: center middle
+
+# Let's try our previous example with *Option*
+
+---
+
+class: center middle
+
+```kotlin
+request.getHeader(Headers.AUTHORIZATION).toOption().flatMap { header ->
+    header.extractToken().flatMap { jwt ->
+        verifier.verify(jwt).toOption().map { token ->
+            SecurityContextHolder.getContext().authentication = token
+        }
+    }
+}
+```
+
+---
+
+class: center middle
+
+# Monadic comprehensions
+
+---
+
+context
+
+---
+
+class: center middle
+
+```kotlin
+Option.fx {
+    val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
+    val (jwt) = header.extractToken()
+    val (token) = verifier.verify(jwt).toOption()
+    SecurityContextHolder.getContext().authentication = token
+}
+```
 
 ---
 
@@ -125,6 +265,17 @@ Either
 class: transition
 
 # Chained transformations
+
+---
+
+
+class: center middle
+
+# This is but a journey
+
+---
+
+diagram with different stages
 
 ---
 
