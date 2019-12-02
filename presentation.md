@@ -110,25 +110,25 @@ class: center middle
 
 ---
 
+context about JWT
+
+---
+
 .bottom-right[
 ### jwt.io/
 ]
-
-sample JWT token
-
----
-
-class: center middle
-
-# Nullable types
-
----
 
 class: center middle
 
 ```shell
 Authorization: Bearer eJ...
 ```
+
+---
+
+class: center middle
+
+# Nullable types
 
 ---
 
@@ -254,20 +254,180 @@ class: transition
 
 ---
 
-outcome of a service success / error
+class: center middle
+
+# Verifying JWT Tokens
 
 ---
 
-Either
+diagram verification flow
 
 ---
 
-class: transition
+class: center middle
 
-# Chained transformations
+```kotlin
+interface Verifier {
+    /**
+     * @param jwt a jwt token
+     * @return whether the token is valid or not
+     */
+    fun verify(jwt: String): TokenAuthentication
+}
+```
 
 ---
 
+class: center middle
+
+# Representing failure
+
+---
+
+class: center middle
+
+```java
+/**
+ * Perform the verification against the given Token
+ *
+ * @param token to verify.
+ * @return a verified and decoded JWT.
+ * @throws AlgorithmMismatchException     
+ * @throws SignatureVerificationException 
+ * @throws TokenExpiredException          
+ * @throws InvalidClaimException          
+ */
+@Override
+public DecodedJWT verify(String token) 
+  throws JWTVerificationException {
+    DecodedJWT jwt = new JWTDecoder(parser, token);
+    return verify(jwt);
+}
+```
+
+---
+
+diagram of server throwing
+
+---
+
+class: center middle
+
+# Exceptions make the flow implicit
+
+---
+
+class: center middle
+
+```kotlin
+@ExceptionHandler(DownstreamException::class)
+fun handleException(exception: DownstreamException) =
+        ResponseEntity
+                .status(HttpStatus.BAD_GATEWAY)
+                .body(ErrorMessage.fromException(exception))
+```
+
+---
+
+class: center middle
+
+# Result
+## kotlin-stdlib
+
+---
+
+class: center middle
+
+
+```kotlin
+fun unsafeOp() =
+        runCatching { 
+            doStuff()
+        }.getOrElse { exception -> handle(exception) }
+```
+
+---
+
+class: center middle
+
+# Either
+
+---
+
+what is an either
+
+---
+
+class: center middle
+
+```kotlin
+override fun verify(jwt: String)
+*       : Either<JWTVerificationException, TokenAuthentication> {
+    val key = key(keySet)
+    val algorithm = algorithm(key)
+    val verifier = verifier(algorithm, leeway)
+    return verifier
+            .unsafeVerify(jwt)
+            .map { it.asToken() }
+}
+```
+
+--
+
+```kotlin
+private fun JWTVerifier.unsafeVerify(jwt: String) = try {
+    verify(jwt).right()
+} catch (e: JWTVerificationException) {
+    e.left()
+}
+```
+
+---
+
+class: center middle
+
+```kotlin
+Either.fx<DownstreamException, List<Product>> {
+    // Either<Throwable, ResponseEntity<UnprocessedResponse>> 
+    val response = unsafeRequest() 
+    val (withError) = response
+           .mapLeft { DownstreamException("Unable to fetch products") }
+    val (body) = withError.nonThrowingEmptyBody
+    body.map()
+}
+```
+
+---
+
+class: center middle
+
+```kotlin
+@GetMapping("{id}")
+fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
+    return when (val result = repository.find(id)) {
+        is Either.Left -> ResponseEntity.status(result.a).build()
+        is Either.Right -> ResponseEntity.ok(result.b)
+    }
+}
+```
+
+---
+
+class: center middle
+
+# Side Effects
+
+---
+
+class: center middle
+
+# Purely functional code
+
+---
+
+IO
+
+---
 
 class: center middle
 
