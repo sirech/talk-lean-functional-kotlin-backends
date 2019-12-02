@@ -114,11 +114,11 @@ context about JWT
 
 ---
 
+class: center middle
+
 .bottom-right[
 ### jwt.io/
 ]
-
-class: center middle
 
 ```shell
 Authorization: Bearer eJ...
