@@ -121,7 +121,9 @@ class: center middle
 ]
 
 ```shell
-Authorization: Bearer eJ...
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
 ---
@@ -426,6 +428,14 @@ class: center middle
 ---
 
 IO
+
+---
+
+IO<Either<E, T>> type
+
+---
+
+the difficulties of mapping IO to a typed exception
 
 ---
 
