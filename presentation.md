@@ -110,10 +110,6 @@ class: center middle
 
 ---
 
-context about JWT
-
----
-
 class: center middle
 
 .bottom-right[
@@ -130,7 +126,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 
 class: center middle
 
-# Nullable types
+```json
+{"alg":"HS256","typ":"JWT"}
+```
+
+```json
+{"sub":"1234567890","name":"John Doe","iat":1516239022}
+```
+
+```
+signature
+```
+
+
+---
+
+class: center middle
+
+## Nullable types
 
 ---
 
@@ -146,7 +159,6 @@ else
 --
 
 ```kotlin
-val header = "Bearer eJ..."
 header.extractToken()?.let { token -> 
     doStuff(token)
 }
@@ -156,11 +168,13 @@ header.extractToken()?.let { token ->
 
 class: center middle
 
-# It can get messy
+## It can get messy
 
 ---
 
-picture of flow
+class: center middle
+
+![jwt-flow](images/jwt-flow.png)
 
 ---
 
@@ -177,8 +191,9 @@ request.getHeader(Headers.AUTHORIZATION)?.let { header ->
 ```
 
 ---
+class: center middle
 
-pic of callback hell
+![callback-hell](images/callback-hell.jpeg)
 
 ---
 
@@ -187,7 +202,9 @@ class: center middle
 
 ---
 
-what is an option
+class: center middle
+
+![option](images/option.png)
 
 ---
 
@@ -209,7 +226,7 @@ fun String.extractToken(): Option<String> = startsWith("Bearer ")
 
 class: center middle
 
-# Let's try our previous example with *Option*
+## Let's try our previous example with *Option*
 
 ---
 
@@ -224,6 +241,12 @@ request.getHeader(Headers.AUTHORIZATION).toOption().flatMap { header ->
     }
 }
 ```
+
+---
+
+class: center middle
+
+## Not much of an improvement
 
 ---
 
