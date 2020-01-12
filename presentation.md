@@ -14,6 +14,19 @@ background-image: url(images/background1.jpg)
 # {{title}}
 ]
 
+???
+
+Rough time distribution
+
+- Intro 5
+- Functional programming 7
+- Where do we use this? 3
+- Immutability 5
+- Null Safety 10
+- Exceptions  10
+- Side Effects 5
+- Wrap Up 5
+
 ---
 
 class: transition
@@ -25,9 +38,26 @@ class: transition
  
 ---
 
+class: center middle
+
+## What to expect from this talk
+ 
+---
+
 class: transition
 
 # Agenda
+
+---
+
+class: center middle
+
+- Functional programming
+- Where do we use this?
+- Immutability
+- Null Safety
+- Exceptions
+- Side Effects
 
 ---
 
@@ -68,7 +98,8 @@ class: center middle
 
 class: transition
 
-# Use case: Lean Backends
+# Where do we use this?
+## Lean Backends
 
 ---
 
@@ -621,11 +652,15 @@ the difficulties of mapping IO to a typed exception
 
 class: center middle
 
-## This is but a journey
+# This is but a journey
 
 ---
 
 diagram with different stages
+
+---
+
+TODO: conclusion
 
 ---
 
