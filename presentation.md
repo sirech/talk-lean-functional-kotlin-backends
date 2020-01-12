@@ -68,11 +68,25 @@ class: center middle
 
 class: transition
 
-# Use case: Microservices
+# Use case: Lean Backends
 
 ---
 
-pic of target architecture
+class: center middle
+
+![backend-architecture](images/backend-architecture.png)
+
+---
+
+class: center middle
+
+## Simple
+
+---
+
+class: center middle
+
+## Test Driven
 
 ---
 
@@ -82,11 +96,83 @@ class: transition
 
 ---
 
-simple data class
+class: center middle
+
+```kotlin
+data class User(
+        val id: Id,
+        val firstName: FirstName,
+        val lastName: LastName,
+        val phoneNumber: String,
+        val dateOfBirth: DateOfBirth?,
+        val location: City?
+)
+```
 
 ---
 
-parsing json data
+class: center middle
+
+## JSON
+
+---
+
+class: center middle
+
+```kotlin
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class User(
+        @JsonAlias("BusinessPartnerId")
+        val id: Id,
+        @JsonAlias("NameFirst")
+        val firstName: FirstName,
+        @JsonAlias("NameLast")
+        val lastName: LastName,
+
+        @JsonAlias("BpData_To_BpAddress")
+        @JsonDeserialize(converter = AddressListSanitizer::class)
+        val addresses: ListOfResults<Address> = ListOfResults.empty()
+)
+```
+
+---
+
+TODO: mapping data to another?
+
+---
+
+TODO: lenses?
+
+---
+
+class: center middle
+
+![strikt](images/strikt.png)
+
+---
+
+class: center middle
+
+```kotlin
+expectThat(token) {
+    get { name }.isEqualTo("google-oauth2|3234123")
+    get { authorities.map { it.authority } }.contains("create:recipes")
+}
+```
+
+---
+
+class: center middle
+
+```console
+org.opentest4j.AssertionFailedError: 
+▼ Expect that Some(TokenAuthentication@52789c41):
+  ▼ TokenAuthentication@52789c41: 
+    Authenticated: true; 
+    Authorities: profile, create:recipes:
+    ▼ name:
+      ✗ is equal to "google-oauth2|3234123" : found "google-oauth2|dude"
+```
 
 ---
 
@@ -256,10 +342,6 @@ class: center middle
 
 ---
 
-context
-
----
-
 class: center middle
 
 ```kotlin
@@ -270,6 +352,10 @@ Option.fx {
     SecurityContextHolder.getContext().authentication = token
 }
 ```
+
+---
+
+TODO: test
 
 ---
 
@@ -503,6 +589,9 @@ fun unsafeOp() =
         }.getOrElse { exception -> handle(exception) }
 ```
 
+---
+
+TODO: test
 
 ---
 
