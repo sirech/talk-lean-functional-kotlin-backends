@@ -392,29 +392,67 @@ class: center middle
 
 ![either](images/either.png)
 
+???
+
+- quite similar to the option one. Main difference is that the error case (the left side) contains also data
+
 ---
 
 class: center middle
 
 ```kotlin
-override fun verify(jwt: String)
-*       : Either<JWTVerificationException, TokenAuthentication> {
-    val key = key(keySet)
-    val algorithm = algorithm(key)
-    val verifier = verifier(algorithm, leeway)
-    return verifier
-            .unsafeVerify(jwt)
-            .map { it.asToken() }
+interface Verifier {
+    /**
+     * @param jwt a jwt token
+     * @return whether the token is valid or not
+     */
+    fun verify(jwt: String): 
+      Either<JWTVerificationException, TokenAuthentication>
 }
 ```
 
---
+---
+
+class: center middle
+
+## Isolating the problematic code
+
+---
+
+class: center middle
 
 ```kotlin
 private fun JWTVerifier.unsafeVerify(jwt: String) = try {
     verify(jwt).right()
 } catch (e: JWTVerificationException) {
     e.left()
+}
+```
+
+???
+
+- There is a `Try` datatype for this, but it has been deprecated
+- This is technically a side effect, which we will get back to later
+
+---
+
+class: center middle
+
+## Operating with Either
+
+---
+
+class: center middle
+
+```kotlin
+override fun verify(jwt: String)
+       : Either<JWTVerificationException, TokenAuthentication> {
+    val key = key(keySet)
+    val algorithm = algorithm(key)
+    val verifier = verifier(algorithm, leeway)
+    return verifier
+*           .unsafeVerify(jwt)
+*           .map { it.asToken() }
 }
 ```
 
@@ -426,9 +464,8 @@ class: center middle
 Either.fx<DownstreamException, List<Product>> {
     // Either<Throwable, ResponseEntity<UnprocessedResponse>> 
     val response = unsafeRequest() 
-    val (withError) = response
+    val (body) = response
            .mapLeft { DownstreamException("Unable to fetch products") }
-    val (body) = withError.nonThrowingEmptyBody
     body.map()
 }
 ```
