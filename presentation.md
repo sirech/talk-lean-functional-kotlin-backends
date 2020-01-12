@@ -285,7 +285,9 @@ class: center middle
 
 ---
 
-diagram verification flow
+class: center middle
+
+![jwt-flow-highlight](images/jwt-flow-highlight.png)
 
 ---
 
@@ -305,7 +307,7 @@ interface Verifier {
 
 class: center middle
 
-# Representing failure
+## That signature is not quite telling the truth
 
 ---
 
@@ -332,7 +334,9 @@ public DecodedJWT verify(String token)
 
 ---
 
-diagram of server throwing
+class: center middle
+
+![exception](images/exception.png)
 
 ---
 
@@ -345,30 +349,13 @@ class: center middle
 class: center middle
 
 ```kotlin
-@ExceptionHandler(DownstreamException::class)
-fun handleException(exception: DownstreamException) =
-        ResponseEntity
-                .status(HttpStatus.BAD_GATEWAY)
-                .body(ErrorMessage.fromException(exception))
-```
-
----
-
-class: center middle
-
-# Result
-## kotlin-stdlib
-
----
-
-class: center middle
-
-
-```kotlin
-fun unsafeOp() =
-        runCatching { 
-            doStuff()
-        }.getOrElse { exception -> handle(exception) }
+@ExceptionHandler(JWTVerificationException::class)
+fun handleException(exception: JWTVerificationException):
+  ResponseEntity<ErrorMessage> {
+    return ResponseEntity
+      .status(HttpStatus.BAD_GATEWAY)
+      .body(ErrorMessage.fromException(exception))
+}
 ```
 
 ---
@@ -379,7 +366,9 @@ class: center middle
 
 ---
 
-what is an either
+class: center middle
+
+![either](images/either.png)
 
 ---
 
@@ -435,6 +424,26 @@ fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
     }
 }
 ```
+
+---
+
+class: center middle
+
+# Result
+## kotlin-stdlib
+
+---
+
+class: center middle
+
+
+```kotlin
+fun unsafeOp() =
+        runCatching { 
+            doStuff()
+        }.getOrElse { exception -> handle(exception) }
+```
+
 
 ---
 
