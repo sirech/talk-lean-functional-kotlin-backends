@@ -98,7 +98,7 @@ class: transition
 
 class: middle
 
-# The billion dollar mistake
+## The billion dollar mistake
 
 > I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
 
@@ -198,7 +198,7 @@ class: center middle
 ---
 
 class: center middle
-# Option
+## Option
 
 ---
 
@@ -252,7 +252,7 @@ class: center middle
 
 class: center middle
 
-# Monadic comprehensions
+## Monadic comprehensions
 
 ---
 
@@ -281,7 +281,7 @@ class: transition
 
 class: center middle
 
-# Verifying JWT Tokens
+## Verifying JWT Tokens
 
 ---
 
@@ -332,17 +332,39 @@ public DecodedJWT verify(String token)
 }
 ```
 
+???
+
+- we are using auth0's library to decode a token
+
 ---
 
 class: center middle
 
 ![exception](images/exception.png)
 
+???
+
+- verify will throw an exception whenever it is not succesful
+
 ---
 
 class: center middle
 
-# Exceptions make the flow implicit
+## Exceptions make the flow implicit
+
+???
+
+- the error case will ignore the path we defined before
+
+---
+
+class: center middle
+
+## Exceptions force you to be aware of the internal implementation
+
+???
+
+- you cannot know that unless you inspect the implementation
 
 ---
 
@@ -362,7 +384,7 @@ fun handleException(exception: JWTVerificationException):
 
 class: center middle
 
-# Either
+## Either
 
 ---
 
@@ -429,8 +451,8 @@ fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
 
 class: center middle
 
-# Result
-## kotlin-stdlib
+## Result
+### kotlin-stdlib
 
 ---
 
@@ -447,7 +469,7 @@ fun unsafeOp() =
 
 ---
 
-class: center middle
+class: transition
 
 # Side Effects
 
@@ -455,7 +477,7 @@ class: center middle
 
 class: center middle
 
-# Purely functional code
+## Purely functional code
 
 ---
 
@@ -473,7 +495,7 @@ the difficulties of mapping IO to a typed exception
 
 class: center middle
 
-# This is but a journey
+## This is but a journey
 
 ---
 
