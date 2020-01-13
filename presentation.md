@@ -18,14 +18,14 @@ background-image: url(images/background1.jpg)
 
 Rough time distribution
 
-- Intro 5
+- Intro (who we are / goal of the talk / agenda) 5
 - Functional programming 7
 - Where do we use this? 3
 - Immutability 5
 - Null Safety 10
-- Exceptions  10
+- Exceptions  10 
 - Side Effects 5
-- Wrap Up 5
+- Wrap Up (conclusion / thank you) 5
 
 ---
 
@@ -307,7 +307,6 @@ class: center middle
 signature
 ```
 
-
 ---
 
 class: center middle
@@ -438,7 +437,32 @@ Option.fx {
 
 ---
 
-TODO: test
+class: center middle
+
+## Custom assertion for testing
+
+---
+
+class: center middle
+
+```kotlin
+inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
+        isA<None>()
+```
+
+---
+
+class: center middle
+
+```kotlin
+@Test
+fun `verify does not work with a invalid jwt token`() {
+    expectThat(RemoteVerifier(keySet)
+      .verify(jwt)
+      .toOption()
+    ).isEmpty()
+}
+```
 
 ---
 
@@ -674,7 +698,39 @@ fun unsafeOp() =
 
 ---
 
-TODO: test
+class: center middle
+
+## Moar custom assertions
+
+---
+
+class: center middle
+
+```kotlin
+inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>
+  .isRight() =
+        isA<Either.Right<T>>()
+                .get { b }
+```
+
+---
+
+class: center middle
+
+```kotlin
+@Test
+fun `verify works if the expiration is not taken into account`() {
+    val hundredYears = 3600L * 24 * 365 * 100
+    val verifier = RemoteVerifier(keySet, hundredYears)
+
+    expectThat(verifier.verify(jwt)).isRight().and {
+        get { name }
+          .isEqualTo("google-oauth2|111460419457288935787")
+        get { authorities.map { it.authority } }
+          .contains("create:recipes")
+    }
+}
+```
 
 ---
 
