@@ -563,7 +563,7 @@ class: center middle
 
 ???
 
-- quite similar to the option one. Main difference is that the error case (the left side) contains also data
+- Either is a disjoint union. It means the result can be either one or the other, but not both
 
 ---
 
