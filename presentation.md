@@ -65,34 +65,92 @@ class: transition
 
 # Functional Programming
 
+???
+
+Why? 
+- packing a lot of action into fewer lines of code
+  - simplicity => we are dealing only with the local scope
+  - elegant => separation between symbolic logic vs. algorithms 
+  - easier to test and to reason about it
+- immutability & pure functions => just mention them 
+
+What? 
+- FP, by nature, describes the *logic* rather than the control flow
+- leads to becoming close to the domain => create privites as we go
+
+How? 
+- describes the logic of a computation rather than the control flow 
+- declarative 
+
 ---
 
 class: center middle
 
 ## Functions
 
+???
+
+- build expressions which take arguments and produce new values
+
+---
+
+class: center middle
+
+## How is the data seen?
+
+*Operands* and *Operators*
+
+???
+
+- operands = info to manipulate
+- operators = the behavior
+
+- imperative = mutable info written in a certain medium
+
+---
+
+class: center middle
+
+## How is the data seen?
+
+*Domain* and the *process of execution*
+
+???
+
+FP allows to address them adequately and _separately_
+
+---
+
+class: center middle
+
+## Behavior
+
+Operators which bind the operands together
+
+???
+
+FP allows to address them adequately and _separately_
+FP is all about removing the side-effects and mutations ... basically _removing_ the time from the equation
+
+---
+
+class: center middle
+
+## Side-effects
+
+---
+
+class: center middle
+
+## Data types vs. Type classes
+
+???
+
 ---
 
 class: center middle
 
 ## Higher order functions
-
----
-
-class: center middle
-
-## Testing functions
-
----
-
-class: center middle
-
-## New operators
-
-???
-
-- map
-- flatMap
 
 ---
 
@@ -106,12 +164,6 @@ class: transition
 class: center middle
 
 ![backend-architecture](images/backend-architecture.png)
-
----
-
-class: center middle
-
-## Simple
 
 ---
 
