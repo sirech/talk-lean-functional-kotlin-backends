@@ -86,71 +86,97 @@ How?
 
 class: center middle
 
-## Functions
+## Pure functions and Immutability
 
 ???
 
+Functions:
 - build expressions which take arguments and produce new values
+  - unlike in imperative programming where they are conceptualized as side-effecting behaviors
+- what makes them pure? 
+  - same returned value for the same arguments
+  - have no side-effects (like mutation...)
 
----
+Immutability
+- simplicity (easy to reason about it since it's predictable)
+- makes it easy for scaling and fixes part of side-effects 
 
-class: center middle
-
-## How is the data seen?
-
-*Operands* and *Operators*
-
-???
-
-- operands = info to manipulate
-- operators = the behavior
-
-- imperative = mutable info written in a certain medium
-
----
-
-class: center middle
-
-## How is the data seen?
-
-*Domain* and the *process of execution*
-
-???
-
-FP allows to address them adequately and _separately_
-
----
-
-class: center middle
-
-## Behavior
-
-Operators which bind the operands together
-
-???
-
-FP allows to address them adequately and _separately_
-FP is all about removing the side-effects and mutations ... basically _removing_ the time from the equation
-
----
-
-class: center middle
-
-## Side-effects
-
----
-
-class: center middle
-
-## Data types vs. Type classes
-
-???
+Link to next slide:
+- FP, by nature, describes the *logic* rather than the control flow
+- leads to becoming close to the domain => create privites as we go
 
 ---
 
 class: center middle
 
 ## Higher order functions
+
+???
+
+= functions that take other functions as input parameters
+
+---
+
+class: center middle
+
+## Focus on What instead of How
+Separate the *domain* from the *process of execution*
+
+???
+
+Declarative 
+- focus on the phenomena and the high-level behavior
+FP allows to address them adequately and separately
+- the execution becomes just the computation of some values
+In FP we basically patterns become primitives
+
+FP is all about removing the side-effects and mutations ... basically _removing_ the time from the equation
+
+---
+
+class: center middle
+
+## Operands and Operators
+
+???
+
+Operands = info to manipulate
+Operators = the transformations we apply over the info
+- imperative = mutable info written in a certain medium
+
+---
+
+class: center middle
+
+## Data Types and Type Classes
+
+???
+
+- data types = abstractions of our domain (leads to "new" primitives) 
+- data types DO NOT contain the logic
+- type classes = describe abstract behaviors that affect multiple data types
+- concrete instances targeting specific data types have to be defined 
+- type classes basically provide polymorphic declarations 
+
+- basically whenever we need ot do something with the data types we inject the behavior using the type classes
+
+---
+
+class: center middle
+
+![kotlin](images/kotlin.png)
+
+???
+
+- functions are first class => higher order functions
+- immutability 
+- makes null explicit
+
+- write concise and expressive code
+- scales with the help of couroutines
+- has nice language features 
+- kotlin can be adopted incrementaly (given JVM)
+
 
 ---
 
