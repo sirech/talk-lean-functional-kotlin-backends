@@ -796,7 +796,59 @@ diagram with different stages
 
 ---
 
-TODO: conclusion
+class: transition
+
+# Conclusions
+
+???
+
+
+---
+
+class: center middle
+
+# Kotlin is a versatile language
+
+???
+
+- kotlin is a versatile language
+- kotlin can be successfully used for a lot more things than just android apps
+  - like backends
+
+---
+
+class: center middle
+
+# FP != only monads 
+
+(or other fancy keywords)
+
+???
+
+- FP does require us to think a bit differently but it is not only about monads and facy keywords
+
+---
+
+class: center middle
+
+# FP can improve our codebase
+
+???
+
+- functional style becomes helpful for multiple reasons
+  - simplicity
+  - elegance
+  - testability and easy to reason about
+  - scalability
+  - safety
+
+---
+
+class: center middle
+
+# Adopt functional style Kotlin step by step
+
+???
 
 ---
 
