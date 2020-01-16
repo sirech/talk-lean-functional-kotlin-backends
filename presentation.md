@@ -67,20 +67,30 @@ class: transition
 
 ???
 
+What? 
+- FP, by nature, describes the *logic* rather than the control flow
+- leads to becoming close to the domain => create privites as we go
+
 Why? 
 - packing a lot of action into fewer lines of code
   - simplicity => we are dealing only with the local scope
   - elegant => separation between symbolic logic vs. algorithms 
   - easier to test and to reason about it
-- immutability & pure functions => just mention them 
-
-What? 
-- FP, by nature, describes the *logic* rather than the control flow
-- leads to becoming close to the domain => create privites as we go
 
 How? 
-- describes the logic of a computation rather than the control flow 
 - declarative 
+- describes the logic of a computation rather than the control flow 
+
+---
+
+class: center middle
+
+![FP components](images/fp-components.jpeg)
+
+???
+
+- just mention the components generically speaking
+- tell that we will cover more of them as we proceed
 
 ---
 
@@ -141,6 +151,7 @@ class: center middle
 ???
 
 Operands = info to manipulate
+- abstracting away side-effects 
 Operators = the transformations we apply over the info
 - imperative = mutable info written in a certain medium
 
