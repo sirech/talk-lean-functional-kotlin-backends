@@ -817,15 +817,40 @@ class: center middle
 
 ---
 
-IO
+class: center middle
+
+## IO
 
 ---
 
-IO<Either<E, T>> type
+class: center middle
+
+```kotlin
+interface Verifier {
+    /**
+     * @param jwt a jwt token
+     * @return whether the token is valid or not
+     */
+    fun verify(jwt: String):
+      IO<Either<JWTVerificationException, TokenAuthentication>>
+}
+```
 
 ---
 
-the difficulties of mapping IO to a typed exception
+diagram of edge of the world
+
+---
+
+class: center middle
+
+## Monads don't compose
+
+---
+
+class: center middle
+
+## Monad transformers
 
 ---
 
