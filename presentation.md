@@ -67,10 +67,6 @@ class: transition
 
 ???
 
-What? 
-- FP, by nature, describes the *logic* rather than the control flow
-- leads to becoming close to the domain => create privites as we go
-
 Why? 
 - packing a lot of action into fewer lines of code
   - simplicity => we are dealing only with the local scope
@@ -78,8 +74,11 @@ Why?
   - easier to test and to reason about it
 
 How? 
+- FP, by nature, describes the *logic* rather than the control flow
+- becoms closer to the domain since we create privites as we go
 - declarative 
-- describes the logic of a computation rather than the control flow 
+
+- more on the next slides while presenting kotlin in the backend
 
 ---
 
@@ -123,7 +122,11 @@ class: center middle
 
 ???
 
-= functions that take other functions as input parameters
+- functions that take other functions as input parameters
+- functions that operate on other functions
+- how do we use them? 
+  - they allow us to abstract 
+  - and compose actions
 
 ---
 
@@ -139,21 +142,9 @@ Declarative
 FP allows to address them adequately and separately
 - the execution becomes just the computation of some values
 In FP we basically patterns become primitives
+- abstracting away side-effects 
 
 FP is all about removing the side-effects and mutations ... basically _removing_ the time from the equation
-
----
-
-class: center middle
-
-## Operands and Operators
-
-???
-
-Operands = info to manipulate
-- abstracting away side-effects 
-Operators = the transformations we apply over the info
-- imperative = mutable info written in a certain medium
 
 ---
 
