@@ -41,6 +41,11 @@ class: transition
 class: center middle
 
 ## What to expect from this talk
+
+???
+
+- introduce functional concepts
+- show code that we use in day to day and help us
  
 ---
 
@@ -219,6 +224,10 @@ data class User(
         val location: City?
 )
 ```
+
+---
+
+collection example
 
 ---
 
