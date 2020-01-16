@@ -257,11 +257,45 @@ data class User(
 
 ---
 
-TODO: mapping data to another?
+class: center middle
+
+## Change inside the app
 
 ---
 
-TODO: lenses?
+class: center middle
+
+```kotlin
+employee.copy(
+       address = employee.address.copy(
+               street = employee.address.street.copy(
+                       name = employee.address.street.name.capitalize()
+               )
+       )
+)
+```
+
+---
+
+class: center middle
+
+```kotlin
+val employeeAddress: Lens<Employee, Address> = Lens(
+        get = { it.address },
+        set = { employee, address -> employee.copy(address = address) }
+)
+```
+
+---
+
+class: center middle
+
+```kotlin
+val employeeStreetName: Lens<Employee, String> =
+  employeeAddress compose addressStrees compose streetName
+
+employeeStreetName.modify(employee, String::capitalize)
+```
 
 ---
 
