@@ -72,6 +72,9 @@ class: transition
 
 ???
 
+TO DELETE
+- move intro info in FP components slide
+
 Why? 
 - packing a lot of action into fewer lines of code
   - simplicity => we are dealing only with the local scope
@@ -93,6 +96,8 @@ class: center middle
 
 ???
 
+TODO: add slides with pics explaining all 4 points (if we cannot find any than just remove it)
+
 - just mention the components generically speaking
 - tell that we will cover more of them as we proceed
 
@@ -103,6 +108,9 @@ class: center middle
 ## Pure functions and Immutability
 
 ???
+
+TO DELETE
+- colapse info into FP components with photo on each 
 
 Functions:
 - build expressions which take arguments and produce new values
@@ -123,6 +131,8 @@ class: center middle
 
 ???
 
+TO DELETE
+
 - functions that take other functions as input parameters
 - functions that operate on other functions
 - how do we use them? 
@@ -136,6 +146,8 @@ class: center middle
 ## Data Types and Type Classes
 
 ???
+
+TODO: more slides for individual explanation followed by visual example
 
 - data types = an abstraction that encapsulates one reusable coding pattern
 - data types in kotlin = sealed class hierarchy
@@ -154,6 +166,8 @@ class: center middle
 ![kotlin](images/kotlin.png)
 
 ???
+
+TODO: possible expand with code snippets
 
 - functions are first class => higher order functions
 - immutability 
@@ -178,11 +192,21 @@ class: center middle
 
 ![backend-architecture](images/backend-architecture.png)
 
+???
+
+TODO: move in the beginning
+TODO: expand to mention our possible pain points and where do they happen on the diagram
+
 ---
 
 class: center middle
 
 ## Test Driven
+
+???
+
+TO REMOVE
+- info on this should be spread arond
 
 ---
 
@@ -204,6 +228,10 @@ data class User(
         val location: City?
 )
 ```
+
+???
+
+- explain better the kotlin magic
 
 ---
 
@@ -255,6 +283,11 @@ employee.copy(
 )
 ```
 
+???
+
+TO REMOVE 
+- lenses can be removed
+
 ---
 
 class: center middle
@@ -265,6 +298,11 @@ val employeeAddress: Lens<Employee, Address> = Lens(
         set = { employee, address -> employee.copy(address = address) }
 )
 ```
+
+???
+
+TO REMOVE 
+- lenses can be removed
 
 ---
 
@@ -277,11 +315,20 @@ val employeeStreetName: Lens<Employee, String> =
 employeeStreetName.modify(employee, String::capitalize)
 ```
 
+???
+
+TO REMOVE 
+- lenses can be removed
+
 ---
 
 class: center middle
 
 ![strikt](images/strikt.png)
+
+???
+
+TODO: make a slide where we combine ARROW, STRIKT and other tech
 
 ---
 
@@ -328,6 +375,11 @@ class: center middle
 
 ## Decoding JWT tokens
 
+???
+
+TO REMOVE
+- replace it with just **security token**
+
 ---
 
 class: center middle
@@ -341,6 +393,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
 .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
+
+???
+
+TO REMOVE
+- no need to have jwts => just use security token
 
 ---
 
@@ -358,6 +415,11 @@ class: center middle
 signature
 ```
 
+???
+
+TO REMOVE
+- no need to have jwts => just use security token
+
 ---
 
 class: center middle
@@ -374,6 +436,10 @@ fun String.extractToken(): String? = if (startsWith("Bearer"))
 else
     null
 ```
+
+???
+
+TODO: replace the `startsWith` with a more abstract function
 
 --
 
@@ -461,6 +527,10 @@ request.getHeader(Headers.AUTHORIZATION).toOption().flatMap { header ->
 }
 ```
 
+???
+
+TODO: need to explain by now the `map` and `flatMap` terms
+
 ---
 
 class: center middle
@@ -472,6 +542,10 @@ class: center middle
 class: center middle
 
 ## Monadic comprehensions
+
+???
+
+TO REMOVE
 
 ---
 
@@ -485,6 +559,10 @@ Option.fx {
     SecurityContextHolder.getContext().authentication = token
 }
 ```
+
+???
+
+TODO: explain this without going into monads
 
 ---
 
@@ -501,6 +579,10 @@ inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
         isA<None>()
 ```
 
+???
+
+TO REMOVE 
+
 ---
 
 class: center middle
@@ -515,6 +597,10 @@ fun `verify does not work with a invalid jwt token`() {
 }
 ```
 
+???
+
+TODO: replace with code without customer assertion
+
 ---
 
 class: transition
@@ -526,6 +612,10 @@ class: transition
 class: center middle
 
 ## Verifying JWT Tokens
+
+???
+
+TODO: replace JWT with security token 
 
 ---
 
@@ -747,6 +837,10 @@ fun unsafeOp() =
         }.getOrElse { exception -> handle(exception) }
 ```
 
+???
+
+TODO: maybe start with this before the going into Either
+
 ---
 
 class: center middle
@@ -763,6 +857,11 @@ inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>
         isA<Either.Right<T>>()
                 .get { b }
 ```
+
+
+???
+
+TO REMOVE
 
 ---
 
@@ -800,6 +899,10 @@ class: center middle
 class: center middle
 
 ## IO
+
+???
+
+Next steps slide (maybe) ? 
 
 ---
 
