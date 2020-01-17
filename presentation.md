@@ -115,10 +115,6 @@ Immutability
 - simplicity (easy to reason about it since it's predictable)
 - makes it easy for scaling and fixes part of side-effects 
 
-Link to next slide:
-- FP, by nature, describes the *logic* rather than the control flow
-- leads to becoming close to the domain => create privites as we go
-
 ---
 
 class: center middle
@@ -143,6 +139,7 @@ Separate the *domain* from the *process of execution*
 ???
 
 Declarative 
+- FP, by nature, describes the *logic* rather than the control flow
 - focus on the phenomena and the high-level behavior
 FP allows to address them adequately and separately
 - the execution becomes just the computation of some values
@@ -159,13 +156,15 @@ class: center middle
 
 ???
 
-- data types = abstractions of our domain (leads to "new" primitives) 
+- data types = an abstraction that encapsulates one reusable coding pattern
+- data types in kotlin = sealed class hierarchy
 - data types DO NOT contain the logic
 - type classes = describe abstract behaviors that affect multiple data types
+- type classes = interfaces that define a set of extension functions associated to one type
+- purpose = single shared definition of common API & behavior shared across many types in different libraries and codebases
+- type classes provide polymorphic declarations and are impl outside of their types
+- typeclass = stateless parameters, just a collection of functions => easy to test
 - concrete instances targeting specific data types have to be defined 
-- type classes basically provide polymorphic declarations 
-
-- basically whenever we need ot do something with the data types we inject the behavior using the type classes
 
 ---
 
