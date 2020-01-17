@@ -133,25 +133,6 @@ class: center middle
 
 class: center middle
 
-## Focus on What instead of How
-Separate the *domain* from the *process of execution*
-
-???
-
-Declarative 
-- FP, by nature, describes the *logic* rather than the control flow
-- focus on the phenomena and the high-level behavior
-FP allows to address them adequately and separately
-- the execution becomes just the computation of some values
-In FP we basically patterns become primitives
-- abstracting away side-effects 
-
-FP is all about removing the side-effects and mutations ... basically _removing_ the time from the equation
-
----
-
-class: center middle
-
 ## Data Types and Type Classes
 
 ???
