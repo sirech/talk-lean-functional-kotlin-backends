@@ -16,6 +16,13 @@ background-image: url(images/background1.jpg)
 
 ???
 
+What to expect from this talk
+
+- using kotlin in the backend
+- applying functional concepts to make code that is testable, maintainable and easy to understand
+
+Orga (to be removed later)
+
 Rough time distribution
 
 - Intro (who we are / goal of the talk / agenda) 5
@@ -38,32 +45,68 @@ class: transition
  
 ---
 
-class: center middle
-
-## What to expect from this talk
-
-???
-
-- introduce functional concepts
-- show code that we use in day to day and help us
- 
----
-
 class: transition
 
-# Agenda
+# Let's start with some context
 
 ---
 
 class: center middle
 
-- Functional programming
-- Where do we use this?
-- Immutability
-- Null Safety
-- Exceptions
-- Side Effects
+![overview-architecture](images/overview-architecture.png)
 
+---
+
+class: center middle
+
+![overview-architecture-highlight](images/overview-architecture-highlight.png)
+
+---
+
+class: center middle
+
+![backend-architecture](images/backend-architecture.png)
+
+---
+
+class: center middle
+
+## The techs that we will be mentioning
+
+---
+
+class: center middle
+
+.image-grid[
+.img[![kotlin](images/kotlin.png)]
+.img[![strikt](images/strikt.png)]
+.img[![arrow](images/arrow.jpeg)]
+.img[![spring-boot](images/spring-boot.png)]
+]
+
+---
+
+class: center middle
+
+# Our pain points
+
+---
+
+diagram: our pain points
+
+- unpredictable changes
+- unexpect null values, working around null values
+- uncontrolled exceptions
+
+---
+
+what we are going to tell you
+
+- immutable data
+- null safety
+- an alternative to throwing exceptions
+- bonus: side effects free
+ 
 ---
 
 class: transition
@@ -83,7 +126,7 @@ Why?
 
 How? 
 - FP, by nature, describes the *logic* rather than the control flow
-- becoms closer to the domain since we create privites as we go
+- becoms closer to the domain since we create privites (primitives?) as we go
 - declarative 
 
 - more on the next slides while presenting kotlin in the backend
@@ -161,58 +204,14 @@ TODO: more slides for individual explanation followed by visual example
 
 ---
 
-class: center middle
-
-![kotlin](images/kotlin.png)
-
-???
-
-TODO: possible expand with code snippets
-
-- functions are first class => higher order functions
-- immutability 
-- makes null explicit
-
-- write concise and expressive code
-- scales with the help of couroutines
-- has nice language features 
-- kotlin can be adopted incrementaly (given JVM)
-
-
----
-
 class: transition
 
-# Where do we use this?
-## Lean Backends
-
----
-
-class: center middle
-
-![backend-architecture](images/backend-architecture.png)
-
-???
-
-TODO: move in the beginning
-TODO: expand to mention our possible pain points and where do they happen on the diagram
-
----
-
-class: center middle
-
-## Test Driven
-
-???
-
-TO REMOVE
-- info on this should be spread arond
-
----
-
-class: transition
-
+# Pain point 1: Uncontrolled change
 # Immutable data
+
+---
+
+flow that shows uncontrolled change in the middle of the app
 
 ---
 
@@ -324,16 +323,6 @@ TO REMOVE
 
 class: center middle
 
-![strikt](images/strikt.png)
-
-???
-
-TODO: make a slide where we combine ARROW, STRIKT and other tech
-
----
-
-class: center middle
-
 ```kotlin
 expectThat(token) {
     get { name }.isEqualTo("google-oauth2|3234123")
@@ -359,7 +348,12 @@ org.opentest4j.AssertionFailedError:
 
 class: transition
 
-# Null Safety
+# Paint point 2: Dealing with null values
+## Null Safety
+
+---
+
+sample with a ton of if else checks
 
 ---
 
@@ -376,6 +370,8 @@ class: center middle
 ## Decoding JWT tokens
 
 ???
+
+TODO: move to the beginning to explain the context perhaps? Also align all the examples so that they are consistent to each other
 
 TO REMOVE
 - replace it with just **security token**
@@ -485,6 +481,10 @@ class: center middle
 class: center middle
 ## Option
 
+???
+
+- as this is the first datatype that we present, this might be the moment to introduce what a datatype is. we can mention that `map` and `flatMap` are the standard functions
+
 ---
 
 class: center middle
@@ -541,11 +541,11 @@ class: center middle
 
 class: center middle
 
-## Monadic comprehensions
+## Non-nested syntax thanks to arrow
 
 ???
 
-TO REMOVE
+- Similar to await/async in JS
 
 ---
 
@@ -605,17 +605,17 @@ TODO: replace with code without customer assertion
 
 class: transition
 
-# Exceptions
+# Pain 3: Exceptions
+
+---
+
+diagram with a typical stackstrace
 
 ---
 
 class: center middle
 
-## Verifying JWT Tokens
-
-???
-
-TODO: replace JWT with security token 
+## Verifying our token
 
 ---
 
@@ -636,6 +636,10 @@ interface Verifier {
     fun verify(jwt: String): TokenAuthentication
 }
 ```
+
+???
+
+- TODO: adapt code to avoid mentioning jwt
 
 ---
 
@@ -668,7 +672,7 @@ public DecodedJWT verify(String token)
 
 ???
 
-- we are using auth0's library to decode a token
+- Make it clearer that this is the implementation
 
 ---
 
@@ -845,7 +849,7 @@ TODO: maybe start with this before the going into Either
 
 class: center middle
 
-## Moar custom assertions
+## More custom assertions
 
 ---
 
@@ -884,6 +888,10 @@ fun `verify works if the expiration is not taken into account`() {
 
 ---
 
+remember slide with the 3 pains from the beginning
+
+---
+
 class: transition
 
 # Side Effects
@@ -893,6 +901,10 @@ class: transition
 class: center middle
 
 ## Purely functional code
+
+---
+
+diagram of edge of the world
 
 ---
 
@@ -906,44 +918,13 @@ Next steps slide (maybe) ?
 
 ---
 
-class: center middle
-
-```kotlin
-interface Verifier {
-    /**
-     * @param jwt a jwt token
-     * @return whether the token is valid or not
-     */
-    fun verify(jwt: String):
-      IO<Either<JWTVerificationException, TokenAuthentication>>
-}
-```
-
----
-
-diagram of edge of the world
+## IO<Either<JWTVerificationException, TokenAuthentication>>
 
 ---
 
 class: center middle
 
-## Monads don't compose
-
----
-
-class: center middle
-
-## Monad transformers
-
----
-
-class: center middle
-
-# This is but a journey
-
----
-
-diagram with different stages
+## We are hitting the limit of what's convenient to do with Kotlin and Arrow here
 
 ---
 
@@ -953,6 +934,7 @@ class: transition
 
 ???
 
+- Should probably focus on what we presented as issues in the beginning
 
 ---
 
