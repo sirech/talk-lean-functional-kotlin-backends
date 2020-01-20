@@ -130,7 +130,7 @@ replace with diagram or 3 points with first one highlighted
 
 ---
 
-flow that shows uncontrolled change in the middle of the app
+list of steps diagram. Block inside the box changes color in between. In the end there is a question mark why did this change?
 
 ---
 
@@ -147,28 +147,33 @@ class: center middle
 class: center middle
 
 ```kotlin
-data class User(
+data class TokenAuthentication(
         val id: Id,
         val firstName: FirstName,
         val lastName: LastName,
-        val phoneNumber: String,
-        val dateOfBirth: DateOfBirth?,
-        val location: City?
+        val scopes: List<Scope>,
+        val expiresAt: LocalDateTime
 )
 ```
 
 ???
 
-- TODO: change to tokens
 - Explain we use tokens as the example throughout
 
 ---
 
-collection example
+class: center middle
 
-???
 
-- TODO: actual code (for example list of claims)
+```kotlin
+val scopes: List<Scope> = buildScopes(token) 
+
+// List is immutable, it won't compile
+scopes.removeAt(1) ❌
+
+// Creates a new list
+scopes.filter { it.isAdmin } ✅
+```
 
 ---
 
@@ -182,23 +187,17 @@ class: center middle
 
 ```kotlin
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class User(
-        @JsonAlias("BusinessPartnerId")
+data class TokenAuthentication(
         val id: Id,
-        @JsonAlias("NameFirst")
+        @JsonAlias("name_first")
         val firstName: FirstName,
-        @JsonAlias("NameLast")
+        @JsonAlias("name_last")
         val lastName: LastName,
-
-        @JsonAlias("BpData_To_BpAddress")
-        @JsonDeserialize(converter = AddressListSanitizer::class)
-        val addresses: ListOfResults<Address> = ListOfResults.empty()
+        @JsonDeserialize(converter = ListSanitizer::class)
+        val scopes: List<Scope>,
+        val expiresAt: LocalDateTime
 )
 ```
-
-???
-
-- TODO: change to tokens
 
 ---
 
@@ -208,11 +207,12 @@ class: center middle
 
 ---
 
-example of copy constructor
+class: center middle
 
-???
-
-- TODO: missing code
+```kotlin
+// Will create a new object
+fun TokenAuthentication.clearScopes() = copy(scopes = emptyList())
+```
 
 ---
 
@@ -225,16 +225,27 @@ expectThat(token) {
 }
 ```
 
+```console
+org.opentest4j.AssertionFailedError: 
+▼ Expect that Some(TokenAuthentication@52789c41):
+  ▼ TokenAuthentication@52789c41: 
+    Authenticated: true; 
+    Authorities: profile, create:recipes:
+    ▼ name:
+      ✗ is equal to "google-oauth2|3234123" : found "google-oauth2|dude"
+```
+
 ---
 
-benefits of immutability
+class: center middle
 
-- easier to reason
-- no invalid state
+## Easier to reason
+## Always in a valid state
+## Can be shared freely
 
 ???
 
-- TODO: fill slide
+- TODO: effective java picture
 
 ---
 
@@ -244,11 +255,23 @@ class: transition
 
 ---
 
-sample Java code with a ton of if else checks
+class: center middle
 
-???
+```java
+public static boolean isAdmin(List<Scope> scopes) {
+    if(scopes == null) {
+      return false;
+    }
 
-- TODO: missing code
+    Scope adminScope = findAdminScope(scopes);
+
+    if(adminScope == null) {
+      return false;
+    }
+
+    return adminScope.isValid();
+  }
+```
 
 ---
 
@@ -342,7 +365,8 @@ class: center middle
 
 class: center middle
 
-# Datatype?
+# Datatype? 🤔
+
 
 .bottom-right[
 An FP digression
@@ -360,8 +384,8 @@ class: center middle
 
 ```kotlin
 interface Operations {
-    fun <A, B> DataType<A>.map(f: (A) -> B): DataType<B>
-    fun <A, B> DataType<A>.flatMap(f: (A) -> DataType<B>): DataType<B>
+    fun <A, B> Option<A>.map(f: (A) -> B): Option<B>
+    fun <A, B> Option<A>.flatMap(f: (A) -> Option<B>): Option<B>
 }
 ```
 
@@ -392,10 +416,6 @@ class: center middle
 ???
 
 - It is implemented with sealed classes
-
----
-
-example with when Some / None ?
 
 ---
 
@@ -445,10 +465,7 @@ TODO: proper colors
 
 class: center middle
 
-## Not much of an improvement 
-
-
-TODO: sadface
+## Not much of an improvement 😔
 
 ---
 
@@ -492,9 +509,16 @@ fun `verify does not work with a invalid jwt token`() {
 
 ---
 
-- deal with null!
+class: center middle
 
-TODO: conclusion
+## Explicit about what can be null
+## Avoid if-null litter
+## Compile time checks
+## Save a billion dollars 🤓
+
+???
+
+- TODO: are we missing benefits here
 
 ---
 
@@ -504,7 +528,17 @@ class: transition
 
 ---
 
-diagram with a typical stackstrace
+class: center middle
+
+```console
+com.auth0.jwt.exceptions.JWTDecodeException: 
+  The string '{"typ":"JWT","alg":"RS256"}' is not a valid token.
+      at com.auth0.jwt.impl.JWTParser.convertFromJSON(JWTParser.java:52)
+      at com.auth0.jwt.impl.JWTParser.parseHeader(JWTParser.java:33)
+      at com.auth0.jwt.JWTDecoder.<init>(JWTDecoder.java:37)
+      at com.auth0.jwt.JWT.decode(JWT.java:21)
+      at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:352)
+```
 
 ---
 
@@ -524,17 +558,9 @@ class: center middle
 
 ```kotlin
 interface Verifier {
-    /**
-     * @param jwt a jwt token
-     * @return whether the token is valid or not
-     */
-    fun verify(jwt: String): TokenAuthentication
+    fun verify(token: String): TokenAuthentication
 }
 ```
-
-???
-
-- TODO: adapt code to avoid mentioning jwt
 
 ---
 
@@ -559,10 +585,6 @@ class: center middle
  */
 public DecodedJWT verifyByCallingExternalApi(String token);
 ```
-
-???
-
-- TODO: Make it clearer that this is the implementation
 
 ---
 
@@ -639,18 +661,15 @@ class: center middle
 
 ```kotlin
 interface Operations {
-    fun <A, B> DataType<A>.map(f: (A) -> B): DataType<B>
-    fun <A, B> DataType<A>.flatMap(f: (A) -> DataType<B>): DataType<B>
+    fun <T, A, B> Either<T, A>.map(f: (A) -> B): Either<T, B>
+    fun <T, A, B> Either<T, A>.flatMap(f: (A) -> Either<T, B>):
+      Either<T, B>
 }
 ```
 
 .bottom-right[
 An FP digression
 ]
-
-???
-
-- TODO correct types
 
 ---
 
@@ -668,11 +687,7 @@ class: center middle
 
 ```kotlin
 interface Verifier {
-    /**
-     * @param jwt a jwt token
-     * @return whether the token is valid or not
-     */
-    fun verify(jwt: String): 
+    fun verify(token: String): 
       Either<JWTVerificationException, TokenAuthentication>
 }
 ```
@@ -688,8 +703,8 @@ class: center middle
 class: center middle
 
 ```kotlin
-private fun JWTVerifier.unsafeVerify(jwt: String) = try {
-    verify(jwt).right()
+private fun JWTVerifier.unsafeVerify(token: String) = try {
+    verify(token).right()
 } catch (e: JWTVerificationException) {
     e.left()
 }
@@ -710,13 +725,13 @@ class: center middle
 class: center middle
 
 ```kotlin
-override fun verify(jwt: String)
+override fun verify(token: String)
        : Either<JWTVerificationException, TokenAuthentication> {
     val key = key(keySet)
     val algorithm = algorithm(key)
     val verifier = verifier(algorithm, leeway)
     return verifier
-*           .unsafeVerify(jwt)
+*           .unsafeVerify(token)
 *           .map { it.asToken() }
 }
 ```
@@ -734,6 +749,10 @@ Either.fx<DownstreamException, List<Product>> {
     body.map()
 }
 ```
+
+???
+
+- TODO: either rework to use tokens or delete
 
 ---
 
@@ -793,9 +812,11 @@ fun `verify works if the expiration is not taken into account`() {
 
 ---
 
-???
+class: center middle
 
-TODO: conclusion
+## Makes flow explicit
+## Interface tells the whole truth
+## Compile time checks
 
 ---
 
