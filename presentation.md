@@ -47,9 +47,9 @@ class: transition
  
 ---
 
-class: transition
+class: center middle
 
-# Let's start with some context
+## Let's start with some context
 
 ---
 
@@ -59,7 +59,7 @@ class: center middle
 
 ???
 
-make it clearer that it is a big ecosystem
+TODO: make it clearer that it is a big ecosystem (big german corp building, cloud inside it)
 
 ---
 
@@ -97,26 +97,26 @@ class: center middle
 ---
 
 class: transition
-
+    
 # Our pain points
-
-???
-
-- a picture to show that this was bothering us?
 
 ---
 
 class: middle
 
-## I don't know the state of my data
+### I don't know the state of my data
 
 --
 
-## Half of my time I'm just dealing with *null* values
+### Half of my time I'm just dealing with *null* values
 
 --
 
-## The other half I'm debugging the 500s thrown by our application
+### The other half I'm debugging the **500s** thrown by our application
+
+???
+
+- TODO: think about how to present this
  
 ---
 
@@ -166,6 +166,10 @@ data class User(
 
 collection example
 
+???
+
+- TODO: actual code (for example list of claims)
+
 ---
 
 class: center middle
@@ -194,7 +198,7 @@ data class User(
 
 ???
 
-- change to tokens
+- TODO: change to tokens
 
 ---
 
@@ -205,6 +209,10 @@ class: center middle
 ---
 
 example of copy constructor
+
+???
+
+- TODO: missing code
 
 ---
 
@@ -224,15 +232,23 @@ benefits of immutability
 - easier to reason
 - no invalid state
 
+???
+
+- TODO: fill slide
+
 ---
 
 class: transition
 
-# Paint point 2: Dealing with null values
+# Pain point 2: Dealing with null values
 
 ---
 
 sample Java code with a ton of if else checks
+
+???
+
+- TODO: missing code
 
 ---
 
@@ -363,6 +379,10 @@ class: center middle
 
 ### hackernoon.com/kotlin-functors-applicatives-and-monads-in-pictures-part-1-3-c47a1b1ce251
 
+.bottom-right[
+An FP digression
+]
+
 ---
 
 class: center middle
@@ -425,7 +445,8 @@ TODO: proper colors
 
 class: center middle
 
-## Not much of an improvement
+## Not much of an improvement 
+
 
 TODO: sadface
 
@@ -468,10 +489,6 @@ fun `verify does not work with a invalid jwt token`() {
 *   ).isEmpty()
 }
 ```
-
-???
-
-TODO: replace with code without customer assertion
 
 ---
 
@@ -680,9 +697,7 @@ private fun JWTVerifier.unsafeVerify(jwt: String) = try {
 
 ???
 
-- There is a `Try` datatype for this, but it has been deprecated
 - This is technically a side effect, which we will get back to later
-- TODO: 
 
 ---
 
@@ -829,10 +844,6 @@ class: center middle
 class: transition
 
 # Conclusions
-
-???
-
-- TODO: 
 
 ---
 
