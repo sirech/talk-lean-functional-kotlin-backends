@@ -26,7 +26,7 @@ Elevator pitch
 
 class: center middle
 
-## what to expect from this talk
+## What to expect from this talk
 
 ???
 
@@ -77,7 +77,7 @@ class: center middle
 
 class: center middle
 
-## The techs that we will be mentioning
+## Techs that we will be mentioning
 
 ---
 
@@ -116,13 +116,15 @@ class: middle
  
 ---
 
-class: transition
+class: center middle
 
-# Pain point 1: Uncontrolled change
+![pains-start](images/pains-start.png)
 
-???
+---
 
-replace with diagram or 3 points with first one highlighted
+class: center middle
+
+![pains-1](images/pains-1.png)
 
 ---
 
@@ -245,9 +247,9 @@ class: center middle
 
 ---
 
-class: transition
+class: center middle
 
-# Pain point 2: Dealing with null values
+![pains-2](images/pains-2.png)
 
 ---
 
@@ -518,9 +520,9 @@ class: center middle
 
 ---
 
-class: transition
+class: center middle
 
-# Pain 3: Exceptions
+![pains-3](images/pains-3.png)
 
 ---
 
@@ -816,7 +818,9 @@ class: center middle
 
 ---
 
-remember slide with the 3 pains from the beginning
+class: center middle
+
+![pains-end](images/pains-end.png)
 
 ---
 
