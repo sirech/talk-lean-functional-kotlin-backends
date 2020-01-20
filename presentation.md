@@ -16,23 +16,25 @@ background-image: url(images/background1.jpg)
 
 ???
 
-What to expect from this talk
+Elevator pitch
 
-- using kotlin in the backend
+- backend services
+- using kotlin
 - applying functional concepts to make code that is testable, maintainable and easy to understand
 
-Orga (to be removed later)
+---
 
-Rough time distribution
+class: center middle
 
-- Intro (who we are / goal of the talk / agenda) 5
-- Functional programming 7
-- Where do we use this? 3
-- Immutability 5
-- Null Safety 10
-- Exceptions  10 
-- Side Effects 5
-- Wrap Up (conclusion / thank you) 5
+## what to expect from this talk
+
+???
+
+Content
+
+- code examples that run in production
+- introducing some concepts of FP
+- not a FP tutorial, not a Kotlin tutorial
 
 ---
 
@@ -55,6 +57,10 @@ class: center middle
 
 ![overview-architecture](images/overview-architecture.png)
 
+???
+
+make it clearer that it is a big ecosystem
+
 ---
 
 class: center middle
@@ -66,6 +72,10 @@ class: center middle
 class: center middle
 
 ![backend-architecture](images/backend-architecture.png)
+
+???
+
+- it could be a DB as well
 
 ---
 
@@ -86,26 +96,27 @@ class: center middle
 
 ---
 
-class: center middle
+class: transition
 
 # Our pain points
 
----
+???
 
-diagram: our pain points
-
-- unpredictable changes
-- unexpect null values, working around null values
-- uncontrolled exceptions
+- a picture to show that this was bothering us?
 
 ---
 
-what we are going to tell you
+class: center middle
 
-- immutable data
-- null safety
-- an alternative to throwing exceptions
-- bonus: side effects free
+## I don't know the state of my data
+
+--
+
+## Half of my time I'm just dealing with *null* values
+
+--
+
+## The other half I'm debugging the 500s thrown by our application
  
 ---
 
