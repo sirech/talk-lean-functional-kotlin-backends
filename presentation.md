@@ -57,10 +57,6 @@ class: center middle
 
 ![overview-architecture](images/overview-architecture.png)
 
-???
-
-TODO: make it clearer that it is a big ecosystem (big german corp building, cloud inside it)
-
 ---
 
 class: center middle
