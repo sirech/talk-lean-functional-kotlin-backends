@@ -106,7 +106,7 @@ class: transition
 
 ---
 
-class: center middle
+class: middle
 
 ## I don't know the state of my data
 
@@ -122,107 +122,25 @@ class: center middle
 
 class: transition
 
-# Functional Programming
-
-???
-
-TO DELETE
-- move intro info in FP components slide
-
-Why? 
-- packing a lot of action into fewer lines of code
-  - simplicity => we are dealing only with the local scope
-  - elegant => separation between symbolic logic vs. algorithms 
-  - easier to test and to reason about it
-
-How? 
-- FP, by nature, describes the *logic* rather than the control flow
-- becoms closer to the domain since we create privites (primitives?) as we go
-- declarative 
-
-- more on the next slides while presenting kotlin in the backend
-
----
-
-class: center middle
-
-![FP components](images/fp-components.jpeg)
-
-???
-
-TODO: add slides with pics explaining all 4 points (if we cannot find any than just remove it)
-
-- just mention the components generically speaking
-- tell that we will cover more of them as we proceed
-
----
-
-class: center middle
-
-## Pure functions and Immutability
-
-???
-
-TO DELETE
-- colapse info into FP components with photo on each 
-
-Functions:
-- build expressions which take arguments and produce new values
-  - unlike in imperative programming where they are conceptualized as side-effecting behaviors
-- what makes them pure? 
-  - same returned value for the same arguments
-  - have no side-effects (like mutation...)
-
-Immutability
-- simplicity (easy to reason about it since it's predictable)
-- makes it easy for scaling and fixes part of side-effects 
-
----
-
-class: center middle
-
-## Higher order functions
-
-???
-
-TO DELETE
-
-- functions that take other functions as input parameters
-- functions that operate on other functions
-- how do we use them? 
-  - they allow us to abstract 
-  - and compose actions
-
----
-
-class: center middle
-
-## Data Types and Type Classes
-
-???
-
-TODO: more slides for individual explanation followed by visual example
-
-- data types = an abstraction that encapsulates one reusable coding pattern
-- data types in kotlin = sealed class hierarchy
-- data types DO NOT contain the logic
-- type classes = describe abstract behaviors that affect multiple data types
-- type classes = interfaces that define a set of extension functions associated to one type
-- purpose = single shared definition of common API & behavior shared across many types in different libraries and codebases
-- type classes provide polymorphic declarations and are impl outside of their types
-- typeclass = stateless parameters, just a collection of functions => easy to test
-- concrete instances targeting specific data types have to be defined 
-
----
-
-class: transition
-
 # Pain point 1: Uncontrolled change
-# Immutable data
+
+???
+
+replace with diagram or 3 points with first one highlighted
 
 ---
 
 flow that shows uncontrolled change in the middle of the app
+
+---
+
+class: center middle
+
+## Immutability
+
+???
+
+- What is immutability
 
 ---
 
@@ -241,7 +159,8 @@ data class User(
 
 ???
 
-- explain better the kotlin magic
+- TODO: change to tokens
+- Explain we use tokens as the example throughout
 
 ---
 
@@ -273,62 +192,19 @@ data class User(
 )
 ```
 
----
-
-class: center middle
-
-## Change inside the app
-
----
-
-class: center middle
-
-```kotlin
-employee.copy(
-       address = employee.address.copy(
-               street = employee.address.street.copy(
-                       name = employee.address.street.name.capitalize()
-               )
-       )
-)
-```
-
 ???
 
-TO REMOVE 
-- lenses can be removed
+- change to tokens
 
 ---
 
 class: center middle
 
-```kotlin
-val employeeAddress: Lens<Employee, Address> = Lens(
-        get = { it.address },
-        set = { employee, address -> employee.copy(address = address) }
-)
-```
-
-???
-
-TO REMOVE 
-- lenses can be removed
+## Dealing with change
 
 ---
 
-class: center middle
-
-```kotlin
-val employeeStreetName: Lens<Employee, String> =
-  employeeAddress compose addressStrees compose streetName
-
-employeeStreetName.modify(employee, String::capitalize)
-```
-
-???
-
-TO REMOVE 
-- lenses can be removed
+example of copy constructor
 
 ---
 
@@ -343,28 +219,20 @@ expectThat(token) {
 
 ---
 
-class: center middle
+benefits of immutability
 
-```console
-org.opentest4j.AssertionFailedError: 
-▼ Expect that Some(TokenAuthentication@52789c41):
-  ▼ TokenAuthentication@52789c41: 
-    Authenticated: true; 
-    Authorities: profile, create:recipes:
-    ▼ name:
-      ✗ is equal to "google-oauth2|3234123" : found "google-oauth2|dude"
-```
+- easier to reason
+- no invalid state
 
 ---
 
 class: transition
 
 # Paint point 2: Dealing with null values
-## Null Safety
 
 ---
 
-sample with a ton of if else checks
+sample Java code with a ton of if else checks
 
 ---
 
@@ -378,64 +246,22 @@ class: middle
 
 class: center middle
 
-## Decoding JWT tokens
-
-???
-
-TODO: move to the beginning to explain the context perhaps? Also align all the examples so that they are consistent to each other
-
-TO REMOVE
-- replace it with just **security token**
-
----
-
-class: center middle
-
-.bottom-right[
-### jwt.io/
-]
-
-```shell
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
-.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-```
-
-???
-
-TO REMOVE
-- no need to have jwts => just use security token
-
----
-
-class: center middle
-
-```json
-{"alg":"HS256","typ":"JWT"}
-```
-
-```json
-{"sub":"1234567890","name":"John Doe","iat":1516239022}
-```
-
-```
-signature
-```
-
-???
-
-TO REMOVE
-- no need to have jwts => just use security token
-
----
-
-class: center middle
-
 ## Nullable types
 
+???
+
+- This is what Kotlin offers us out of the box
+- TODO: small kotlin logo
+
 ---
 
 class: center middle
+
+ ```
+Authorization: Bearer bGciOi...JIUzI1NiIs
+```
+
+--
 
 ```kotlin
 fun String.extractToken(): String? = if (startsWith("Bearer"))
@@ -444,16 +270,11 @@ else
     null
 ```
 
-???
-
-TODO: replace the `startsWith` with a more abstract function
-
 --
 
 ```kotlin
-header.extractToken()?.let { token -> 
-    doStuff(token)
-}
+header.extractToken()
+  ?.let { token -> doStuff(token) }
 ```
 
 ---
@@ -473,13 +294,16 @@ class: center middle
 class: center middle
 
 ```kotlin
-request.getHeader(Headers.AUTHORIZATION)?.let { header ->
-    header.extractToken()?.let { jwt ->
-        verifier.verify(jwt)?.let { token ->
-            SecurityContextHolder.getContext().authentication = token       
-        }
-    }
-}
+request.getHeader(Headers.AUTHORIZATION)
+  ?.let { header ->
+    header.extractToken()
+      ?.let { jwt ->
+        verifier.verify(jwt)
+          ?.let { token ->
+            SecurityContextHolder.getContext().authentication = token
+          }
+      }
+  }
 ```
 
 ---
@@ -490,9 +314,11 @@ class: center middle
 ---
 
 class: center middle
-## Option
+## Option Datatype
 
 ???
+
+- TODO: small arrow logo
 
 - as this is the first datatype that we present, this might be the moment to introduce what a datatype is. we can mention that `map` and `flatMap` are the standard functions
 
@@ -500,7 +326,56 @@ class: center middle
 
 class: center middle
 
+# Datatype?
+
+.bottom-right[
+An FP digression
+]
+
+--
+
+class: center middle
+
+## A datatype is an abstraction that encapsulates one reusable coding pattern.
+
+---
+
+class: center middle
+
+```kotlin
+interface Operations {
+    fun <A, B> DataType<A>.map(f: (A) -> B): DataType<B>
+    fun <A, B> DataType<A>.flatMap(f: (A) -> DataType<B>): DataType<B>
+}
+```
+
+.bottom-right[
+An FP digression
+]
+
+???
+
+- it is actually a typeclass
+
+---
+
+class: center middle
+
+### hackernoon.com/kotlin-functors-applicatives-and-monads-in-pictures-part-1-3-c47a1b1ce251
+
+---
+
+class: center middle
+
 ![option](images/option.png)
+
+???
+
+- It is implemented with sealed classes
+
+---
+
+example with when Some / None ?
 
 ---
 
@@ -529,24 +404,30 @@ class: center middle
 class: center middle
 
 ```kotlin
-request.getHeader(Headers.AUTHORIZATION).toOption().flatMap { header ->
-    header.extractToken().flatMap { jwt ->
-        verifier.verify(jwt).toOption().map { token ->
+request.getHeader(Headers.AUTHORIZATION)
+  .toOption()
+  .flatMap { header ->
+    header.extractToken()
+      .flatMap { jwt ->
+        verifier.verify(jwt)
+          .map { token ->
             SecurityContextHolder.getContext().authentication = token
         }
-    }
-}
+      }
+  }
 ```
 
 ???
 
-TODO: need to explain by now the `map` and `flatMap` terms
+TODO: proper colors
 
 ---
 
 class: center middle
 
 ## Not much of an improvement
+
+TODO: sadface
 
 ---
 
@@ -566,33 +447,14 @@ class: center middle
 Option.fx {
     val (header) = request.getHeader(Headers.AUTHORIZATION).toOption()
     val (jwt) = header.extractToken()
-    val (token) = verifier.verify(jwt).toOption()
+    val (token) = verifier.verify(jwt)
     SecurityContextHolder.getContext().authentication = token
 }
 ```
 
 ???
 
-TODO: explain this without going into monads
-
----
-
-class: center middle
-
-## Custom assertion for testing
-
----
-
-class: center middle
-
-```kotlin
-inline fun <reified T> Assertion.Builder<Option<T>>.isEmpty() =
-        isA<None>()
-```
-
-???
-
-TO REMOVE 
+TODO: align the code with the previous example
 
 ---
 
@@ -601,16 +463,21 @@ class: center middle
 ```kotlin
 @Test
 fun `verify does not work with a invalid jwt token`() {
-    expectThat(RemoteVerifier(keySet)
-      .verify(jwt)
-      .toOption()
-    ).isEmpty()
+    expectThat(
+      RemoteVerifier(keySet).verify(jwt)
+*   ).isEmpty()
 }
 ```
 
 ???
 
 TODO: replace with code without customer assertion
+
+---
+
+- deal with null!
+
+TODO: conclusion
 
 ---
 
@@ -673,17 +540,12 @@ class: center middle
  * @throws TokenExpiredException          
  * @throws InvalidClaimException          
  */
-@Override
-public DecodedJWT verify(String token) 
-  throws JWTVerificationException {
-    DecodedJWT jwt = new JWTDecoder(parser, token);
-    return verify(jwt);
-}
+public DecodedJWT verifyByCallingExternalApi(String token);
 ```
 
 ???
 
-- Make it clearer that this is the implementation
+- TODO: Make it clearer that this is the implementation
 
 ---
 
@@ -694,6 +556,7 @@ class: center middle
 ???
 
 - verify will throw an exception whenever it is not succesful
+- TODO: to which diagram should this refer to?
 
 ---
 
@@ -710,6 +573,10 @@ class: center middle
 class: center middle
 
 ## Exceptions force you to be aware of the internal implementation
+
+.bottom-right[
+kotlinlang.org/docs/reference/exceptions.html
+]
 
 ???
 
@@ -733,7 +600,40 @@ fun handleException(exception: JWTVerificationException):
 
 class: center middle
 
-## Either
+## Either DataType
+
+---
+
+class: center middle
+
+## Option and Either are quite similar
+
+.bottom-right[
+An FP digression
+]
+
+???
+
+- TODO: mention that Option and Either are similar? `Kind` perhaps?
+
+---
+
+class: center middle
+
+```kotlin
+interface Operations {
+    fun <A, B> DataType<A>.map(f: (A) -> B): DataType<B>
+    fun <A, B> DataType<A>.flatMap(f: (A) -> DataType<B>): DataType<B>
+}
+```
+
+.bottom-right[
+An FP digression
+]
+
+???
+
+- TODO correct types
 
 ---
 
@@ -782,6 +682,7 @@ private fun JWTVerifier.unsafeVerify(jwt: String) = try {
 
 - There is a `Try` datatype for this, but it has been deprecated
 - This is technically a side effect, which we will get back to later
+- TODO: 
 
 ---
 
@@ -814,7 +715,7 @@ Either.fx<DownstreamException, List<Product>> {
     // Either<Throwable, ResponseEntity<UnprocessedResponse>> 
     val response = unsafeRequest() 
     val (body) = response
-           .mapLeft { DownstreamException("Unable to fetch products") }
+*          .mapLeft { DownstreamException("Unable to fetch products") }
     body.map()
 }
 ```
@@ -860,28 +761,6 @@ TODO: maybe start with this before the going into Either
 
 class: center middle
 
-## More custom assertions
-
----
-
-class: center middle
-
-```kotlin
-inline fun <reified T, reified U> Assertion.Builder<Either<U, T>>
-  .isRight() =
-        isA<Either.Right<T>>()
-                .get { b }
-```
-
-
-???
-
-TO REMOVE
-
----
-
-class: center middle
-
 ```kotlin
 @Test
 fun `verify works if the expiration is not taken into account`() {
@@ -899,13 +778,19 @@ fun `verify works if the expiration is not taken into account`() {
 
 ---
 
+???
+
+TODO: conclusion
+
+---
+
 remember slide with the 3 pains from the beginning
 
 ---
 
 class: transition
 
-# Side Effects
+# Bonus
 
 ---
 
@@ -929,7 +814,9 @@ Next steps slide (maybe) ?
 
 ---
 
-## IO<Either<JWTVerificationException, TokenAuthentication>>
+class: center middle
+
+`IO<Either<JWTVerificationException, TokenAuthentication>>`
 
 ---
 
@@ -945,54 +832,19 @@ class: transition
 
 ???
 
-- Should probably focus on what we presented as issues in the beginning
+- TODO: 
+
+---
+
+???
+
+TODO: journey metaphor
 
 ---
 
 class: center middle
 
-# Kotlin is a versatile language
-
-???
-
-- kotlin is a versatile language
-- kotlin can be successfully used for a lot more things than just android apps
-  - like backends
-
----
-
-class: center middle
-
-# FP != only monads 
-
-(or other fancy keywords)
-
-???
-
-- FP does require us to think a bit differently but it is not only about monads and facy keywords
-
----
-
-class: center middle
-
-# FP can improve our codebase
-
-???
-
-- functional style becomes helpful for multiple reasons
-  - simplicity
-  - elegance
-  - testability and easy to reason about
-  - scalability
-  - safety
-
----
-
-class: center middle
-
-# Adopt functional style Kotlin step by step
-
-???
+# Incremental adoption
 
 ---
 
@@ -1016,6 +868,7 @@ background-image: url(images/background5.jpg)
 ]
 
 ---
+
 
 
 
