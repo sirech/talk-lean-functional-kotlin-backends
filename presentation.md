@@ -109,10 +109,6 @@ class: middle
 --
     
 ### The other half I'm debugging the **500s** thrown by our application
-
-???
-
-- TODO: think about how to present this
  
 ---
 
@@ -873,15 +869,15 @@ class: transition
 
 ---
 
-???
+class: center middle big-image
 
-TODO: journey metaphor (treasure map?)
+![journey](images/journey.png)
 
 ---
 
-???
+class: center middle big-image
 
-- TODO: logo of kotlin inside a server, logo of FP (lambda)
+![kotlin-fp-server](images/kotlin-fp-server.png)
 
 ---
 
