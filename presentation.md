@@ -107,7 +107,7 @@ class: middle
 ### Half of my time I'm just dealing with *null* values
 
 --
-
+    
 ### The other half I'm debugging the **500s** thrown by our application
 
 ???
@@ -116,7 +116,7 @@ class: middle
  
 ---
 
-class: center middle
+class: center middle big-image
 
 ![pains-1](images/pains-1.png)
 
@@ -246,7 +246,7 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![pains-2](images/pains-2.png)
 
@@ -524,9 +524,9 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
-![pains-3](images/pains-3.png)
+big-image![pains-3](images/pains-3.png)
 
 ---
 
@@ -823,7 +823,7 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![pains-end](images/pains-end.png)
 
