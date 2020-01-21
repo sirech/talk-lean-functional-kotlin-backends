@@ -227,7 +227,7 @@ org.opentest4j.AssertionFailedError:
 
 ---
 
-class: center middle
+class: center middle benefits
 
 # Why Immutability?
 
@@ -238,7 +238,6 @@ class: center middle
 ???
 
 - TODO: effective java picture
-- TODO: better layout
 
 ---
 
@@ -502,7 +501,7 @@ fun `verify does not work with a invalid jwt token`() {
 
 ---
 
-class: center middle
+class: center middle benefits
 
 # Why Option?
 ## Explicit about what can be null
@@ -802,7 +801,7 @@ TODO: maybe start with this before the going into Either
 
 ---
 
-class: center middle
+class: center middle benefits
 
 # Why Either?
 ## Makes flow explicit
@@ -819,7 +818,7 @@ class: center middle big-image
 
 class: transition
 
-# Bonus
+# What comes next?
 
 ---
 

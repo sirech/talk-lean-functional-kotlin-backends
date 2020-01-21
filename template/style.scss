@@ -278,6 +278,13 @@ blockquote {
   }
 }
 
+.benefits {
+  &, h1 {
+    color: $primary;
+    margin-bottom: 2rem;
+  }
+}
+
 .bottom-right {
   position: absolute;
   right: 32px;
