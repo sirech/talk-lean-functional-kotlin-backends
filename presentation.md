@@ -369,7 +369,7 @@ class: center middle
 
 
 .bottom-right[
-An FP digression
+A digression about Functional Programming
 ]
 
 --
@@ -390,7 +390,7 @@ interface Operations {
 ```
 
 .bottom-right[
-An FP digression
+A digression about Functional Programming
 ]
 
 ???
@@ -404,7 +404,7 @@ class: center middle
 ### hackernoon.com/kotlin-functors-applicatives-and-monads-in-pictures-part-1-3-c47a1b1ce251
 
 .bottom-right[
-An FP digression
+A digression about Functional Programming
 ]
 
 ---
@@ -650,7 +650,7 @@ class: center middle
 ## Option and Either are quite similar
 
 .bottom-right[
-An FP digression
+A digression about Functional Programming
 ]
 
 ???
@@ -670,7 +670,7 @@ interface Operations {
 ```
 
 .bottom-right[
-An FP digression
+A digression about Functional Programming
 ]
 
 ---
