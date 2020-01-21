@@ -283,11 +283,11 @@ class: middle
 class: center middle
 
 ## Nullable types
+![kotlin-logo](images/kotlin-logo.png)
 
 ???
 
 - This is what Kotlin offers us out of the box
-- TODO: small kotlin logo
 
 ---
 
@@ -355,10 +355,9 @@ class: center middle
 
 class: center middle
 ## Option Datatype
+![arrow-logo](images/arrow-logo.png)
 
 ???
-
-- TODO: small arrow logo
 
 - as this is the first datatype that we present, this might be the moment to introduce what a datatype is. we can mention that `map` and `flatMap` are the standard functions
 
@@ -642,6 +641,7 @@ fun handleException(exception: JWTVerificationException):
 class: center middle
 
 ## Either DataType
+![arrow-logo](images/arrow-logo.png)
 
 ---
 
