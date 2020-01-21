@@ -77,7 +77,7 @@ class: center middle
 
 class: center middle
 
-## Techs that we will be mentioning
+## Technologies that we will be mentioning
 
 ---
 
@@ -114,12 +114,6 @@ class: middle
 
 - TODO: think about how to present this
  
----
-
-class: center middle
-
-![pains-start](images/pains-start.png)
-
 ---
 
 class: center middle
@@ -239,6 +233,8 @@ org.opentest4j.AssertionFailedError:
 
 class: center middle
 
+# Why Immutability?
+
 ## Easier to reason
 ## Always in a valid state
 ## Can be shared freely
@@ -246,6 +242,7 @@ class: center middle
 ???
 
 - TODO: effective java picture
+- TODO: better layout
 
 ---
 
@@ -344,6 +341,10 @@ request.getHeader(Headers.AUTHORIZATION)
       }
   }
 ```
+
+???
+
+- TODO: colors
 
 ---
 class: center middle
@@ -511,6 +512,7 @@ fun `verify does not work with a invalid jwt token`() {
 
 class: center middle
 
+# Why Option?
 ## Explicit about what can be null
 ## Avoid if-null litter
 ## Compile time checks
@@ -814,6 +816,7 @@ fun `verify works if the expiration is not taken into account`() {
 
 class: center middle
 
+# Why Either?
 ## Makes flow explicit
 ## Interface tells the whole truth
 ## Compile time checks
@@ -866,19 +869,30 @@ class: center middle
 
 class: transition
 
-# Conclusions
+# Wrap Up
 
 ---
 
 ???
 
-TODO: journey metaphor
+TODO: journey metaphor (treasure map?)
+
+---
+
+???
+
+- TODO: logo of kotlin inside a server, logo of FP (lambda)
 
 ---
 
 class: center middle
 
-# Incremental adoption
+# At your own pace!
+
+???
+
+- No blueprint for everybody
+- Every team has different needs
 
 ---
 
