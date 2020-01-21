@@ -122,7 +122,7 @@ class: center middle big-image
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![immutable-change](images/immutable-change.png)
 
@@ -347,7 +347,7 @@ request.getHeader(Headers.AUTHORIZATION)
 - TODO: colors
 
 ---
-class: center middle
+class: center middle big-image
 
 ![callback-hell](images/callback-hell.jpeg)
 
@@ -409,7 +409,7 @@ A digression about Functional Programming
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![option](images/option.png)
 
@@ -589,7 +589,7 @@ public DecodedJWT verifyByCallingExternalApi(String token);
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![exception](images/exception.png)
 
@@ -675,7 +675,7 @@ A digression about Functional Programming
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![either](images/either.png)
 
