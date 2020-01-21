@@ -65,7 +65,7 @@ class: center middle big-image
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![backend-architecture](images/backend-architecture.png)
 
