@@ -128,7 +128,9 @@ class: center middle
 
 ---
 
-list of steps diagram. Block inside the box changes color in between. In the end there is a question mark why did this change?
+class: center middle
+
+![immutable-change](images/immutable-change.png)
 
 ---
 
