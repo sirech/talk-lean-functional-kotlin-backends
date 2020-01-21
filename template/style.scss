@@ -272,6 +272,12 @@ blockquote {
   background-color: $concourse;
 }
 
+.white {
+  &, h1 {
+    color: white;
+  }
+}
+
 .bottom-right {
   position: absolute;
   right: 32px;

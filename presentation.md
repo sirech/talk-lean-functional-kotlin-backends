@@ -521,7 +521,7 @@ class: center middle
 
 class: center middle big-image
 
-big-image![pains-3](images/pains-3.png)
+![pains-3](images/pains-3.png)
 
 ---
 
@@ -837,7 +837,16 @@ class: center middle
 
 ---
 
-diagram of edge of the world
+class: center middle full-width white
+background-image: url(images/edge-world.jpg)
+
+# Edge of the World
+
+---
+
+class: center middle big-image
+
+![edge-world-controller](images/edge-world-controller.png)
 
 ---
 
