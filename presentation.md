@@ -445,7 +445,8 @@ request.getHeader(Headers.AUTHORIZATION)
   .flatMap { header ->
     header.extractToken()
       .flatMap { jwt ->
-        verifier.verify(jwt)
+        verifier
+          .verify(jwt)
           .map { token ->
             SecurityContextHolder.getContext().authentication = token
         }
@@ -485,10 +486,6 @@ Option.fx {
     SecurityContextHolder.getContext().authentication = token
 }
 ```
-
-???
-
-TODO: align the code with the previous example
 
 ---
 
@@ -592,7 +589,6 @@ class: center middle big-image
 ???
 
 - verify will throw an exception whenever it is not succesful
-- TODO: to which diagram should this refer to?
 
 ---
 
@@ -702,7 +698,7 @@ class: center middle
 
 ```kotlin
 private fun JWTVerifier.unsafeVerify(token: String) = try {
-    verify(token).right()
+    verifyByCallingExternalApi(token).right()
 } catch (e: JWTVerificationException) {
     e.left()
 }
@@ -739,18 +735,14 @@ override fun verify(token: String)
 class: center middle
 
 ```kotlin
-Either.fx<DownstreamException, List<Product>> {
+Either.fx<JWTVerificationException, TokenAuthentication> {
     // Either<Throwable, ResponseEntity<UnprocessedResponse>> 
     val response = unsafeRequest() 
     val (body) = response
-*          .mapLeft { DownstreamException("Unable to fetch products") }
+*          .mapLeft { JWTVerificationException(it) }
     body.map()
 }
 ```
-
-???
-
-- TODO: either rework to use tokens or delete
 
 ---
 
@@ -762,6 +754,25 @@ fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
     return when (val result = repository.find(id)) {
         is Either.Left -> ResponseEntity.status(result.a).build()
         is Either.Right -> ResponseEntity.ok(result.b)
+    }
+}
+```
+
+---
+
+class: center middle
+
+```kotlin
+@Test
+fun `verify works if the expiration is not taken into account`() {
+    val hundredYears = 3600L * 24 * 365 * 100
+    val verifier = RemoteVerifier(keySet, hundredYears)
+
+    expectThat(verifier.verify(jwt)).isRight().and {
+        get { name }
+          .isEqualTo("google-oauth2|111460419457288935787")
+        get { authorities.map { it.authority } }
+          .contains("create:recipes")
     }
 }
 ```
@@ -788,25 +799,6 @@ fun unsafeOp() =
 ???
 
 TODO: maybe start with this before the going into Either
-
----
-
-class: center middle
-
-```kotlin
-@Test
-fun `verify works if the expiration is not taken into account`() {
-    val hundredYears = 3600L * 24 * 365 * 100
-    val verifier = RemoteVerifier(keySet, hundredYears)
-
-    expectThat(verifier.verify(jwt)).isRight().and {
-        get { name }
-          .isEqualTo("google-oauth2|111460419457288935787")
-        get { authorities.map { it.authority } }
-          .contains("create:recipes")
-    }
-}
-```
 
 ---
 
