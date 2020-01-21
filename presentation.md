@@ -53,13 +53,13 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![overview-architecture](images/overview-architecture.png)
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![overview-architecture-highlight](images/overview-architecture-highlight.png)
 
