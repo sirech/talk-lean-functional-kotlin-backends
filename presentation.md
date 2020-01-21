@@ -321,7 +321,7 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![jwt-flow](images/jwt-flow.png)
 
@@ -549,7 +549,7 @@ class: center middle
 
 ---
 
-class: center middle
+class: center middle big-image
 
 ![jwt-flow-highlight](images/jwt-flow-highlight.png)
 
