@@ -18,9 +18,11 @@ background-image: url(images/background1.jpg)
 
 Elevator pitch
 
-- backend services
 - using kotlin
-- applying functional concepts to make code that is testable, maintainable and easy to understand
+- backend services
+- applying functional concepts 
+
+ultimate goal: to make code that is testable, maintainable and easy to understand
 
 ---
 
@@ -131,6 +133,7 @@ class: center middle
 ???
 
 - What is immutability
+- preaching using immutable data
 
 ---
 
@@ -164,6 +167,10 @@ scopes.removeAt(1) ❌
 // Creates a new list
 scopes.filter { it.isAdmin } ✅
 ```
+
+???
+
+- alternative in Java: Guava
 
 ---
 
@@ -289,6 +296,11 @@ class: middle
 
 > I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
 
+???
+
+- From Tony Hoare
+- A significant amount of our issues in one of my teams caused by that
+
 ---
 
 class: center middle
@@ -317,12 +329,20 @@ else
     null
 ```
 
+???
+
+- type is explicitly nullable
+
 --
 
 ```kotlin
 header.extractToken()
   ?.let { token -> doStuff(token) }
 ```
+
+???
+
+- safe call operator
 
 ---
 
