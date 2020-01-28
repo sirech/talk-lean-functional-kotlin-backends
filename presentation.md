@@ -171,6 +171,11 @@ class: center middle
 
 ## JSON
 
+???
+
+- most of the work is producing/consuming json
+- converting that JSON directly into the business domain
+
 ---
 
 class: center middle
@@ -195,6 +200,11 @@ class: center middle
 
 ## Dealing with change
 
+???
+
+- domain is not always static. Change inside a service is also possible
+- we don't want to lose the immutability
+
 ---
 
 class: center middle
@@ -203,6 +213,12 @@ class: center middle
 // Will create a new object
 fun TokenAuthentication.clearScopes() = copy(scopes = emptyList())
 ```
+
+---
+
+class: center middle
+
+## A simple test
 
 ---
 
