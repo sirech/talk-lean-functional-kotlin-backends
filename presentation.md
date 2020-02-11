@@ -59,11 +59,22 @@ class: center middle big-image
 
 ![overview-architecture](images/overview-architecture.png)
 
+???
+
+- this is how it looks like in many of our clients, big german corporations
+- for most web app products, there is a big ecosystem, with many teams involved
+- also, legacy systems are usually involved
+
 ---
 
 class: center middle big-image
 
 ![overview-architecture-highlight](images/overview-architecture-highlight.png)
+
+???
+
+- we don't want to talk about this architecture, or about microservices
+- we want to focus on single APIs
 
 ---
 
@@ -73,6 +84,9 @@ class: center middle big-image
 
 ???
 
+- typical architecture is simple, a controller, a layer of services that orchestrate things and a series of clients
+- receives REST requests, gives and outputs JSON
+- JSON is also used to communicate with other APIs
 - it could be a DB as well
 
 ---
@@ -92,11 +106,22 @@ class: center middle
 .img[![spring-boot](images/spring-boot.png)]
 ]
 
+???
+
+- kotlin: already mentioned
+- strikt: a library to write kotlin native assertions
+- spring boot: the web framework we usually take to build services
+- arrow: a wonderful functional library for kotlin
+
 ---
 
 class: transition
     
 # Our pain points
+
+???
+
+- These are pain points that we have observed over and over in our last projects
 
 ---
 
@@ -124,6 +149,11 @@ class: center middle big-image
 
 ![immutable-change](images/immutable-change.png)
 
+???
+
+- typical scenario: our business domain data goes through multiple stages, and is changed (incorrectly) at some point
+- painfully backtrack to debug where things went wrong
+
 ---
 
 class: center middle
@@ -132,7 +162,7 @@ class: center middle
 
 ???
 
-- What is immutability
+- What is immutability: Not changing objects after initialization
 - preaching using immutable data
 
 ---
@@ -151,7 +181,8 @@ data class TokenAuthentication(
 
 ???
 
-- Explain we use tokens as the example throughout
+- Explain we use tokens as the example throughout the presentation
+- kotlin brings immutability with data classes and read-only properties out of the box
 
 ---
 
@@ -170,7 +201,9 @@ scopes.filter { it.isAdmin } ✅
 
 ???
 
+- immutability is useful/important for collections as well
 - alternative in Java: Guava
+- standard collection interfaces are immutable by default in Kotlin
 
 ---
 
@@ -181,7 +214,7 @@ class: center middle
 ???
 
 - most of the work is producing/consuming json
-- converting that JSON directly into the business domain
+- converting that JSON directly into the business domain, avoiding ugly beans
 
 ---
 
@@ -200,6 +233,10 @@ data class TokenAuthentication(
         val expiresAt: LocalDateTime
 )
 ```
+
+???
+
+- leveraging jackson, little overhead
 
 ---
 
@@ -221,11 +258,20 @@ class: center middle
 fun TokenAuthentication.clearScopes() = copy(scopes = emptyList())
 ```
 
+???
+
+- copy method is a convenient way of cloning an object
+- we can overwrite the fields that we want
+
 ---
 
 class: center middle
 
 ## A simple test
+
+???
+
+- we want to show some tests to give you an idea of how we test all this
 
 ---
 
@@ -248,6 +294,11 @@ org.opentest4j.AssertionFailedError:
       ✗ is equal to "google-oauth2|3234123" : found "google-oauth2|dude"
 ```
 
+???
+
+- testing immutable objects can be tricky if they are big and have many members
+- we want to test single attributes while retaining meaningful and expressive error messages
+
 ---
 
 class: center middle benefits
@@ -257,10 +308,6 @@ class: center middle benefits
 ## Easier to reason
 ## Always in a valid state
 ## Can be shared freely
-
-???
-
-- TODO: effective java picture
 
 ---
 
@@ -288,6 +335,11 @@ public static boolean isAdmin(List<Scope> scopes) {
   }
 ```
 
+???
+
+- typical java code
+- every single thing can be null, if we don't test we might get NullPointerException's at runtime
+
 ---
 
 class: middle
@@ -299,7 +351,7 @@ class: middle
 ???
 
 - From Tony Hoare
-- A significant amount of our issues in one of my teams caused by that
+- A significant amount of our issues in one of my teams caused by things being null and not being checked
 
 ---
 
@@ -311,6 +363,7 @@ class: center middle
 ???
 
 - This is what Kotlin offers us out of the box
+- Forces a decision: Can it be null or not? 
 
 ---
 
@@ -319,6 +372,10 @@ class: center middle
  ```
 Authorization: Bearer bGciOi...JIUzI1NiIs
 ```
+
+???
+
+- back to the example: Our service is authenticated, it requires an Authorization header with a Bearer Token
 
 --
 
@@ -331,7 +388,7 @@ else
 
 ???
 
-- type is explicitly nullable
+- type is explicitly nullable, as the token might or might not be there
 
 --
 
@@ -343,6 +400,8 @@ header.extractToken()
 ???
 
 - safe call operator
+- consumer is forced to deal with the null case
+- compiler enforced
 
 ---
 
@@ -355,6 +414,10 @@ class: center middle
 class: center middle big-image
 
 ![jwt-flow](images/jwt-flow.png)
+
+???
+
+- flow is composed of multiple steps, each of those can have an absence of a result (aka null) 
 
 ---
 
@@ -375,12 +438,16 @@ request.getHeader(Headers.AUTHORIZATION)
 
 ???
 
-- TODO: colors
+- so much indentation not very readable anymore
 
 ---
 class: center middle big-image
 
 ![callback-hell](images/callback-hell.jpeg)
+
+???
+
+- reminds of callback hell in javascript
 
 ---
 
@@ -390,7 +457,7 @@ class: center middle
 
 ???
 
-- as this is the first datatype that we present, this might be the moment to introduce what a datatype is. we can mention that `map` and `flatMap` are the standard functions
+- arrow presents an alternative, which is the option datatype
 
 ---
 
@@ -403,11 +470,19 @@ class: center middle
 A digression about Functional Programming
 ]
 
+???
+
+- A bit of FP theory comingm, without getting in too many details
+
 --
 
 class: center middle
 
 ## A datatype is an abstraction that encapsulates one reusable coding pattern.
+
+???
+
+- Basically a design pattern or a container that can abstract some functionality
 
 ---
 
@@ -426,7 +501,9 @@ A digression about Functional Programming
 
 ???
 
-- it is actually a typeclass
+- Option is a container
+- We can operate on it as well, to transform its value
+- For that, we have map for the simple case and flatMap for when the result might be an option itself -> Avoid nesting
 
 ---
 
@@ -438,6 +515,10 @@ class: center middle
 A digression about Functional Programming
 ]
 
+???
+
+- Nice resource to dig deeper
+
 ---
 
 class: center middle big-image
@@ -447,6 +528,7 @@ class: center middle big-image
 ???
 
 - It is implemented with sealed classes
+- Can be either something (with a type) or nothing
 
 ---
 
@@ -463,6 +545,10 @@ else
 fun String.extractToken(): Option<String> = startsWith("Bearer ")
         .maybe { split(" ").last() }
 ```
+
+???
+
+- Arrow has plenty of helpers to aid with constructing these types
 
 ---
 
@@ -491,7 +577,7 @@ request.getHeader(Headers.AUTHORIZATION)
 
 ???
 
-TODO: proper colors
+- still a lot of nesting
 
 ---
 
@@ -522,6 +608,11 @@ Option.fx {
 }
 ```
 
+???
+
+- less nesting
+- some people actually prefer the flatMap stuff
+
 ---
 
 class: center middle
@@ -535,6 +626,10 @@ fun `verify does not work with a invalid jwt token`() {
 }
 ```
 
+???
+
+- with a nice little helper we can easily test what our method returns
+
 ---
 
 class: center middle benefits
@@ -547,7 +642,8 @@ class: center middle benefits
 
 ???
 
-- TODO: are we missing benefits here
+- Arguably, both nullable types and options fulfill these conditions
+- However, Option integrates nicely with other types that we will present in a minute
 
 ---
 
@@ -569,6 +665,11 @@ com.auth0.jwt.exceptions.JWTDecodeException:
       at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:352)
 ```
 
+???
+
+- an example of an exception
+- kind of fake, a real one would be like three pages of text to get the full stacktrace
+
 ---
 
 class: center middle
@@ -581,6 +682,10 @@ class: center middle big-image
 
 ![jwt-flow-highlight](images/jwt-flow-highlight.png)
 
+???
+
+- let's zoom in. We are going to focus on just one part of our flow, the verification
+
 ---
 
 class: center middle
@@ -590,6 +695,10 @@ interface Verifier {
     fun verify(token: String): TokenAuthentication
 }
 ```
+
+???
+
+- you pass a token as a string, get back a processed token with certain decoded properties
 
 ---
 
@@ -615,6 +724,11 @@ class: center middle
 public DecodedJWT verifyByCallingExternalApi(String token);
 ```
 
+???
+
+- if we dig deep in the implementation, we'll see that we are calling an external api
+- everything that can go wrong is represented as an exception 
+
 ---
 
 class: center middle big-image
@@ -623,7 +737,8 @@ class: center middle big-image
 
 ???
 
-- verify will throw an exception whenever it is not succesful
+- verify will throw an exception whenever it is not successful
+- the exception will bubble up right to our controller
 
 ---
 
@@ -634,6 +749,7 @@ class: center middle
 ???
 
 - the error case will ignore the path we defined before
+- there is one path for the happy case, and a completely different one for the error
 
 ---
 
@@ -648,6 +764,7 @@ kotlinlang.org/docs/reference/exceptions.html
 ???
 
 - you cannot know that unless you inspect the implementation
+- encapsulation is broken
 
 ---
 
@@ -663,12 +780,22 @@ fun handleException(exception: JWTVerificationException):
 }
 ```
 
+???
+
+- a way of dealing with exceptions at the controller level in Kotlin
+- avoid throwing 500's
+- runtime check, if we forget the compiler won't help us catching the error
+
 ---
 
 class: center middle
 
 ## Either DataType
 ![arrow-logo](images/arrow-logo.png)
+
+???
+
+- another datatype from the arrow library as an alternative
 
 ---
 
@@ -682,7 +809,7 @@ A digression about Functional Programming
 
 ???
 
-- TODO: mention that Option and Either are similar? `Kind` perhaps?
+- They behave quite similarly, they just model different containers
 
 ---
 
@@ -699,6 +826,10 @@ interface Operations {
 .bottom-right[
 A digression about Functional Programming
 ]
+
+???
+
+- again map and flatMap
 
 ---
 
@@ -721,6 +852,10 @@ interface Verifier {
 }
 ```
 
+???
+
+- now our interface is explicit about the fact that things can go wrong
+
 ---
 
 class: center middle
@@ -741,7 +876,8 @@ private fun JWTVerifier.unsafeVerify(token: String) = try {
 
 ???
 
-- This is technically a side effect, which we will get back to later
+- with this code this method returns an either, and won't throw anymore
+- we use the exception to model the error domain, not to throw them around
 
 ---
 
@@ -765,6 +901,11 @@ override fun verify(token: String)
 }
 ```
 
+???
+
+- you can operate on an either without having to care whether the error happened or not
+- either is right biased: If something went wrong, further operations will be ignored
+
 ---
 
 class: center middle
@@ -779,6 +920,10 @@ Either.fx<JWTVerificationException, TokenAuthentication> {
 }
 ```
 
+???
+
+- mapLeft helps us converting a generic exception into our domain model
+
 ---
 
 class: center middle
@@ -792,6 +937,11 @@ fun recipe(@PathVariable id: Int): ResponseEntity<RecipeDetails> {
     }
 }
 ```
+
+???
+
+- now instead of a handler we deal with both possibilities in the controller
+- using sealed classes mean that the compiler will complain if we don't handle every case
 
 ---
 
@@ -811,6 +961,10 @@ fun `verify works if the expiration is not taken into account`() {
     }
 }
 ```
+
+???
+
+- we can test that the value is correct (Right), and also chain other assertions easily
 
 ---
 
@@ -833,7 +987,7 @@ fun unsafeOp() =
 
 ???
 
-TODO: maybe start with this before the going into Either
+- alternative from the kotlin standard library, cannot be used as of now in interfaces
 
 ---
 
@@ -856,11 +1010,21 @@ class: transition
 
 # What comes next?
 
+???
+
+- if you have adopted the three things mentioned before, you are already quite far ahead
+- some of my teams barely could take the immutability
+- but maybe you want to know what can come next
+
 ---
 
 class: center middle
 
 ## Purely functional code
+
+???
+
+- some our examples are not truly functional, as they are triggering side effects
 
 ---
 
@@ -869,11 +1033,20 @@ background-image: url(images/edge-world.jpg)
 
 # Edge of the World
 
+???
+
+- purely functional means that the code is not truly evaluated until the very end
+- in the functional programming world, the edge of the world is the place just before finishing execution where you trigger all side effects
+
 ---
 
 class: center middle big-image
 
 ![edge-world-controller](images/edge-world-controller.png)
+
+???
+
+- for our backend, that would be the controller, just before returning to the caller
 
 ---
 
@@ -883,7 +1056,8 @@ class: center middle
 
 ???
 
-Next steps slide (maybe) ? 
+- IO is another datatype, just like option and either
+- is a way of modeling side effects in a safe way
 
 ---
 
@@ -891,11 +1065,21 @@ class: center middle
 
 `IO<Either<JWTVerificationException, TokenAuthentication>>`
 
+???
+
+- given that our verifier is triggering a side effect, it should be an IO of an Either
+- already a pretty long type
+
 ---
 
 class: center middle
 
 ## We are hitting the limit of what's convenient to do with Kotlin and Arrow here
+
+???
+
+- not very convenient to use right now
+- there is active development in arrow to make this better. Could come soon
 
 ---
 
@@ -909,11 +1093,20 @@ class: center middle big-image
 
 ![journey](images/journey.png)
 
+???
+
+- this is a journey, from immutability to option to either
+- not necessarily following the same path
+
 ---
 
 class: center middle big-image
 
 ![kotlin-fp-server](images/kotlin-fp-server.png)
+
+???
+
+- combining kotlin and fp has helped us write simpler code that we can maintain more easily
 
 ---
 
