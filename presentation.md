@@ -486,6 +486,37 @@ class: center middle
 
 ---
 
+class: center middle big-image
+
+![option](images/option.png)
+
+???
+
+- It is implemented with sealed classes
+- Can be either something (with a type) or nothing
+
+---
+
+class: center middle
+
+```kotlin
+fun String.extractToken(): String? = if (startsWith("Bearer"))
+    split(" ").last()
+else
+    null
+```
+
+```kotlin
+fun String.extractToken(): Option<String> = startsWith("Bearer ")
+        .maybe { split(" ").last() }
+```
+
+???
+
+- Arrow has plenty of helpers to aid with constructing these types
+
+---
+
 class: center middle
 
 ```kotlin
@@ -519,36 +550,6 @@ A digression about Functional Programming
 
 - Nice resource to dig deeper
 
----
-
-class: center middle big-image
-
-![option](images/option.png)
-
-???
-
-- It is implemented with sealed classes
-- Can be either something (with a type) or nothing
-
----
-
-class: center middle
-
-```kotlin
-fun String.extractToken(): String? = if (startsWith("Bearer"))
-    split(" ").last()
-else
-    null
-```
-
-```kotlin
-fun String.extractToken(): Option<String> = startsWith("Bearer ")
-        .maybe { split(" ").last() }
-```
-
-???
-
-- Arrow has plenty of helpers to aid with constructing these types
 
 ---
 
@@ -813,6 +814,16 @@ A digression about Functional Programming
 
 ---
 
+class: center middle big-image
+
+![either](images/either.png)
+
+???
+
+- Either is a disjoint union. It means the result can be either one or the other, but not both
+
+---
+
 class: center middle
 
 ```kotlin
@@ -831,15 +842,6 @@ A digression about Functional Programming
 
 - again map and flatMap
 
----
-
-class: center middle big-image
-
-![either](images/either.png)
-
-???
-
-- Either is a disjoint union. It means the result can be either one or the other, but not both
 
 ---
 
