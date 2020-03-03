@@ -43,7 +43,7 @@ Content
 class: transition
 
 ## Mario Fernandez
-## Andrei Bechet
+## Srishti Gaihre
  
  **Thought**Works
  
@@ -142,6 +142,13 @@ class: middle
 class: center middle big-image
 
 ![pains-1](images/pains-1.png)
+
+???
+
+- Agenda
+-- this will be our agenda for today
+-- well talk about these three problems
+-- explain the context and offer a solution
 
 ---
 
@@ -967,29 +974,6 @@ fun `verify works if the expiration is not taken into account`() {
 ???
 
 - we can test that the value is correct (Right), and also chain other assertions easily
-
----
-
-class: center middle
-
-## Result
-### kotlin-stdlib
-
----
-
-class: center middle
-
-
-```kotlin
-fun unsafeOp() =
-        runCatching { 
-            doStuff()
-        }.getOrElse { exception -> handle(exception) }
-```
-
-???
-
-- alternative from the kotlin standard library, cannot be used as of now in interfaces
 
 ---
 
